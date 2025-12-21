@@ -91,22 +91,24 @@
         </a>
       </div>
 
-      <div class="buttons">
-        <a class="btn primary" href="/projects/">🚀 Ver proyectos</a>
-        <a class="btn" href="/about-me/">👤 Sobre mí</a>
-        <a class="btn" href="/blog/">📝 Blog</a>
+      <div class="action-buttons">
+        <a class="action-btn primary-action" href="/projects/">
+          <span class="btn-label">Ver Proyectos</span>
+        </a>
+        <a class="action-btn" href="/about-me/">
+          <span class="btn-label">Sobre Mí</span>
+        </a>
+        <a class="action-btn" href="/blog/">
+          <span class="btn-label">Blog</span>
+        </a>
       </div>
-
-      <p class="small" style="margin-top:14px;color:var(--muted)">
-        Correo personal: <strong style="color:var(--text)">leogarcia.lsgg@gmail.com</strong>
-      </p>
     </div>
   </section>
 
   <section class="grid">
-    <div class="card col-6 section">
-      <h2>Lo que hago</h2>
-      <p>
+    <div class="card col-6 section professional-section">
+      <h2 class="section-title">Lo que hago</h2>
+      <p class="section-description">
         Desarrollo interfaces limpias y rápidas para apps móviles con Flutter,
         y también automatizo procesos (notificaciones, correos, workflows) cuando el proyecto lo requiere.
       </p>
@@ -128,8 +130,8 @@
       </div>
     </div>
 
-    <div class="card col-6 section">
-      <h2>Highlights</h2>
+    <div class="card col-6 section professional-section">
+      <h2 class="section-title">Highlights</h2>
       <div class="list">
         <div class="item">
           <h3>🥈 Hackathon UTEG — 2do lugar</h3>
@@ -155,12 +157,28 @@
       </div>
     </div>
 
-    <div class="card col-12 section">
-      <h2>Contacto</h2>
-      <p>Para soporte o temas profesionales:</p>
-      <div class="buttons" style="margin-top:12px">
-        <a class="btn primary" href="mailto:support@leodan.dev">📩 support@leodan.dev</a>
-        <a class="btn" href="mailto:leogarcia@leodan.dev">💼 leogarcia@leodan.dev</a>
+    <div class="card col-12 section professional-section contact-section">
+      <h2 class="section-title">Contacto Profesional</h2>
+      <p class="section-description">Estoy disponible para proyectos, colaboraciones y consultas</p>
+
+      <div class="contact-info-grid">
+        <div class="contact-item">
+          <div class="contact-label">Email Principal</div>
+          <a href="mailto:leogarcia@leodan.dev" class="contact-value primary-contact">leogarcia@leodan.dev</a>
+          <div class="contact-desc">Proyectos & Colaboraciones</div>
+        </div>
+
+        <div class="contact-item">
+          <div class="contact-label">Soporte Técnico</div>
+          <a href="mailto:support@leodan.dev" class="contact-value">support@leodan.dev</a>
+          <div class="contact-desc">Consultas & Asistencia</div>
+        </div>
+
+        <div class="contact-item">
+          <div class="contact-label">Personal</div>
+          <a href="mailto:leogarcia.lsgg@gmail.com" class="contact-value">leogarcia.lsgg@gmail.com</a>
+          <div class="contact-desc">Contacto General</div>
+        </div>
       </div>
     </div>
   </section>
