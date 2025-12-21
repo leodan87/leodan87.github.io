@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Leodan García | Software Development Student</title>
+  <style>
+    body{font-family:Arial,Helvetica,sans-serif;max-width:900px;margin:40px auto;padding:0 16px;line-height:1.6}
+    header{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+    .tag{display:inline-block;padding:6px 10px;border:1px solid #ddd;border-radius:999px;font-size:14px;margin:4px 6px 0 0}
+    nav a{margin-right:12px;text-decoration:none}
+    .card{border:1px solid #eee;border-radius:14px;padding:18px;margin-top:18px}
+    footer{margin-top:40px;font-size:14px;color:#555}
+    .btn{display:inline-block;padding:10px 14px;border:1px solid #111;border-radius:12px;text-decoration:none}
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>Leodan García</h1>
+      <p>Software Development student at UTEG • Building apps & learning every day.</p>
+      <span class="tag">Flutter</span><span class="tag">Python</span><span class="tag">Web</span><span class="tag">GitHub</span>
+    </div>
+    <div>
+      <a class="btn" href="https://github.com/leodan87" target="_blank">GitHub</a>
+    </div>
+  </header>
+
+  <div class="card">
+    <h2>About me</h2>
+    <p>
+      I’m currently studying Software Development at UTEG. I’m focused on building practical projects,
+      improving my programming skills, and documenting what I learn.
+    </p>
+  </div>
+
+  <div class="card">
+    <h2>Projects</h2>
+    <ul>
+      <li><strong>LockPass</strong> — Password manager app (coming soon page).</li>
+      <li><strong>More apps</strong> — I’ll publish updates here as I build.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Blog</h2>
+    <p>Posts coming soon. I’ll share what I learn about software development and my projects.</p>
+  </div>
+
+  <footer>
+    <p>© <span id="y"></span> Leodan García</p>
+  </footer>
+
+  <script>document.getElementById("y").textContent = new Date().getFullYear()</script>
+</body>
+</html>
