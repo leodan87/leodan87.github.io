@@ -4,21 +4,42 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Blog — Leodan García</title>
-  <link rel="stylesheet" href="/assets/css/style.css" />
+  <meta name="description" content="Blog de Leodan García: notas, ideas y artículos sobre Flutter, Dart, Python, automatización y proyectos." />
+  <link rel="stylesheet" href="../assets/css/style.css" />
 </head>
 <body>
 
 <header class="nav">
   <div class="container navbar">
-    <a class="brand" href="/"><div class="logo">LG</div><div>leodan.dev</div></a>
+    <a class="brand" href="../">
+      <div class="logo">LG</div>
+      <div>leodan.dev</div>
+    </a>
+
     <nav class="menu">
-      <a href="/">Inicio</a>
-      <a href="/about-me/">Sobre mí</a>
-      <a href="/projects/">Proyectos</a>
-      <a class="active" href="/blog/">Blog</a>
+      <a href="../">Inicio</a>
+      <a href="../about-me/">Sobre mí</a>
+      <a href="../projects/">Proyectos</a>
+      <a class="active" href="./">Blog</a>
     </nav>
+
     <div class="actions">
-      <button class="iconbtn" id="themeToggle" aria-label="Cambiar tema">🌓</button>
+      <button class="iconbtn" id="themeToggle" aria-label="Cambiar tema" type="button">
+        <svg class="icon icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a7 7 0 1 0 9.8 9.8Z"></path>
+        </svg>
+        <svg class="icon icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12Z"></path>
+          <path d="M12 2v2"></path>
+          <path d="M12 20v2"></path>
+          <path d="M4.93 4.93l1.41 1.41"></path>
+          <path d="M17.66 17.66l1.41 1.41"></path>
+          <path d="M2 12h2"></path>
+          <path d="M20 12h2"></path>
+          <path d="M6.34 17.66l-1.41 1.41"></path>
+          <path d="M19.07 4.93l-1.41 1.41"></path>
+        </svg>
+      </button>
     </div>
   </div>
 </header>
@@ -26,7 +47,7 @@
 <main class="container hero">
   <section class="card section">
     <h1 style="margin:0 0 6px">Blog</h1>
-    <p>Publicaciones y notas técnicas. (Aquí podemos ir creando posts cuando quieras).</p>
+    <p>Publicaciones y notas técnicas. (Aquí iremos creando posts).</p>
   </section>
 
   <section class="grid">
@@ -39,8 +60,8 @@
         </div>
 
         <div class="item">
-          <h3>Próximamente: Buenas prácticas de UI en Flutter</h3>
-          <p>Patrones de diseño, consistencia visual y performance en móvil.</p>
+          <h3>Próximamente: UI limpia en Flutter</h3>
+          <p>Buenas prácticas, consistencia visual y performance en móvil.</p>
           <div class="tags"><span class="tag">Flutter</span><span class="tag">UI</span><span class="tag">Performance</span></div>
         </div>
       </div>
@@ -50,7 +71,7 @@
   <div class="footer">© <span id="year"></span> Leodan García.</div>
 </main>
 
-<script src="/assets/js/main.js"></script>
+<script src="../assets/js/main.js"></script>
 <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
 </body>
 </html>

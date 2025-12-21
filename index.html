@@ -5,33 +5,48 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Leodan García — Frontend (Dart/Flutter)</title>
   <meta name="description" content="Portafolio de Leodan García — Frontend Developer (Dart/Flutter) con conocimientos en Python. Proyectos: LockPass, JaraSecurity, AlertaEstudiantil." />
-  <link rel="stylesheet" href="/assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 <body>
 
 <header class="nav">
   <div class="container navbar">
-    <a class="brand" href="/">
+    <a class="brand" href="./">
       <div class="logo">LG</div>
       <div>leodan.dev</div>
     </a>
 
     <nav class="menu">
-      <a class="active" href="/">Inicio</a>
-      <a href="/about-me/">Sobre mí</a>
-      <a href="/projects/">Proyectos</a>
-      <a href="/blog/">Blog</a>
+      <a class="active" href="./">Inicio</a>
+      <a href="about-me/">Sobre mí</a>
+      <a href="projects/">Proyectos</a>
+      <a href="blog/">Blog</a>
     </nav>
 
     <div class="actions">
-      <button class="iconbtn" id="themeToggle" aria-label="Cambiar tema">🌓</button>
+      <button class="iconbtn" id="themeToggle" aria-label="Cambiar tema" type="button">
+        <svg class="icon icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a7 7 0 1 0 9.8 9.8Z"></path>
+        </svg>
+        <svg class="icon icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12Z"></path>
+          <path d="M12 2v2"></path>
+          <path d="M12 20v2"></path>
+          <path d="M4.93 4.93l1.41 1.41"></path>
+          <path d="M17.66 17.66l1.41 1.41"></path>
+          <path d="M2 12h2"></path>
+          <path d="M20 12h2"></path>
+          <path d="M6.34 17.66l-1.41 1.41"></path>
+          <path d="M19.07 4.93l-1.41 1.41"></path>
+        </svg>
+      </button>
     </div>
   </div>
 </header>
 
 <main class="container hero">
   <section class="card hero-inner">
-    <img class="avatar" src="/assets/img/profile.jpg" alt="Foto de Leodan García" />
+    <img class="avatar" src="assets/img/profile.jpg" alt="Foto de Leodan García" />
 
     <div>
       <h1>Leodan García</h1>
@@ -44,20 +59,66 @@
       </div>
 
       <div class="social">
-        <a href="https://github.com/leodan87" target="_blank" rel="noreferrer">GitHub <span>@leodan87</span></a>
-        <a href="https://instagram.com/leo_dangg" target="_blank" rel="noreferrer">Instagram <span>@leo_dangg</span></a>
-        <a href="https://x.com/LeodanGarcia4" target="_blank" rel="noreferrer">X <span>@LeodanGarcia4</span></a>
-        <a href="mailto:leogarcia@leodan.dev">Email <span>leogarcia@leodan.dev</span></a>
+        <a href="https://github.com/leodan87" target="_blank" rel="noreferrer">
+          <span class="ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 .5C5.73.5.75 5.6.75 12.02c0 5.12 3.14 9.45 7.5 10.98.55.11.75-.25.75-.55v-2.1c-3.05.68-3.7-1.5-3.7-1.5-.5-1.3-1.22-1.65-1.22-1.65-1-.7.08-.69.08-.69 1.1.08 1.68 1.16 1.68 1.16.98 1.72 2.57 1.22 3.2.93.1-.73.38-1.22.68-1.5-2.43-.28-4.98-1.25-4.98-5.55 0-1.22.43-2.22 1.14-3-.12-.29-.5-1.46.1-3.05 0 0 .93-.3 3.05 1.15.89-.26 1.84-.39 2.79-.39s1.9.13 2.79.39c2.12-1.45 3.05-1.15 3.05-1.15.6 1.59.22 2.76.1 3.05.71.78 1.14 1.78 1.14 3 0 4.31-2.56 5.27-5 5.55.39.35.74 1.03.74 2.08v3.08c0 .3.2.66.76.55 4.35-1.53 7.49-5.86 7.49-10.98C23.25 5.6 18.27.5 12 .5Z"/></svg>
+          </span>
+          GitHub <span>@leodan87</span>
+        </a>
+
+        <a href="https://instagram.com/leo_dangg" target="_blank" rel="noreferrer">
+          <span class="ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M7.5 2.5h9A5 5 0 0 1 21.5 7.5v9a5 5 0 0 1-5 5h-9a5 5 0 0 1-5-5v-9a5 5 0 0 1 5-5Zm9 2h-9a3 3 0 0 0-3 3v9a3 3 0 0 0 3 3h9a3 3 0 0 0 3-3v-9a3 3 0 0 0-3-3Zm-4.5 3a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Zm5.2-.9a1.1 1.1 0 1 1-2.2 0 1.1 1.1 0 0 1 2.2 0Z"/></svg>
+          </span>
+          Instagram <span>@leo_dangg</span>
+        </a>
+
+        <a href="https://x.com/LeodanGarcia4" target="_blank" rel="noreferrer">
+          <span class="ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M18.9 2H22l-6.8 7.8L23.3 22h-6.5l-5.1-6.7L5.8 22H2.7l7.3-8.4L.7 2h6.6l4.6 6.1L18.9 2Zm-1.1 18h1.7L7 3.9H5.2l12.6 16.1Z"/></svg>
+          </span>
+          X <span>@LeodanGarcia4</span>
+        </a>
+
+        <a href="mailto:leogarcia@leodan.dev">
+          <span class="ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4.2-8 5.1-8-5.1V6l8 5 8-5v2.2Z"/></svg>
+          </span>
+          Email <span>leogarcia@leodan.dev</span>
+        </a>
       </div>
 
       <div class="buttons">
-        <a class="btn primary" href="/projects/">🚀 Ver proyectos</a>
-        <a class="btn" href="/about-me/">👤 Sobre mí</a>
-        <a class="btn" href="/blog/">📝 Blog</a>
+        <a class="btn primary" href="projects/">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 2l3 7 7 3-7 3-3 7-3-7-7-3 7-3 3-7Z"></path>
+          </svg>
+          Ver proyectos
+        </a>
+
+        <a class="btn" href="about-me/">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M20 21a8 8 0 1 0-16 0"></path>
+            <path d="M12 13a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"></path>
+          </svg>
+          Sobre mí
+        </a>
+
+        <a class="btn" href="blog/">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 19.5V4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v15.5"></path>
+            <path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20"></path>
+            <path d="M8 6h8"></path>
+            <path d="M8 10h8"></path>
+            <path d="M8 14h6"></path>
+          </svg>
+          Blog
+        </a>
       </div>
 
       <p class="small" style="margin-top:14px;color:var(--muted)">
-        Discord: <strong style="color:var(--text)">leo_garcia</strong> · Correo personal: <strong style="color:var(--text)">leogarcia.lsgg@gmail.com</strong>
+        Discord: <strong style="color:var(--text)">leo_garcia</strong> · Correo personal:
+        <a href="mailto:leogarcia.lsgg@gmail.com" style="color:var(--text); font-weight:700;">leogarcia.lsgg@gmail.com</a>
       </p>
     </div>
   </section>
@@ -69,6 +130,7 @@
         Desarrollo interfaces limpias y rápidas para apps móviles con Flutter,
         y también automatizo procesos (notificaciones, correos, workflows) cuando el proyecto lo requiere.
       </p>
+
       <div class="list">
         <div class="item">
           <h3>Frontend Mobile</h3>
@@ -77,6 +139,7 @@
             <span class="tag">Flutter</span><span class="tag">Dart</span><span class="tag">UI/UX</span>
           </div>
         </div>
+
         <div class="item">
           <h3>Automatización & Integraciones</h3>
           <p>Flujos con n8n, emails automáticos, dashboards y lógica de negocio.</p>
@@ -91,12 +154,13 @@
       <h2>Highlights</h2>
       <div class="list">
         <div class="item">
-          <h3>🥈 Hackathon UTEG — 2do lugar</h3>
+          <h3>Hackathon UTEG — 2do lugar</h3>
           <p><strong>AlertaEstudiantil</strong>: detecta riesgo académico, envía alertas automáticas al docente y recomienda acciones con IA.</p>
           <div class="tags">
             <span class="tag">Flutter</span><span class="tag">n8n</span><span class="tag">Cloud Run</span><span class="tag">AI</span>
           </div>
         </div>
+
         <div class="item">
           <h3>JaraSecurity (Pasantías)</h3>
           <p>App para empresa de seguridad: reportes, control y módulos para supervisión.</p>
@@ -104,6 +168,7 @@
             <span class="tag">Flutter</span><span class="tag">Mobile</span><span class="tag">Security App</span>
           </div>
         </div>
+
         <div class="item">
           <h3>LockPass</h3>
           <p>App para guardar cuentas y contraseñas, enfocada en simplicidad y orden.</p>
@@ -117,9 +182,23 @@
     <div class="card col-12 section">
       <h2>Contacto</h2>
       <p>Para soporte o temas profesionales:</p>
+
       <div class="buttons" style="margin-top:12px">
-        <a class="btn primary" href="mailto:support@leodan.dev">📩 support@leodan.dev</a>
-        <a class="btn" href="mailto:leogarcia@leodan.dev">💼 leogarcia@leodan.dev</a>
+        <a class="btn primary" href="mailto:support@leodan.dev">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z"></path>
+            <path d="m22 6-10 7L2 6"></path>
+          </svg>
+          support@leodan.dev
+        </a>
+
+        <a class="btn" href="mailto:leogarcia@leodan.dev">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z"></path>
+            <path d="m22 6-10 7L2 6"></path>
+          </svg>
+          leogarcia@leodan.dev
+        </a>
       </div>
     </div>
   </section>
@@ -127,7 +206,7 @@
   <div class="footer">© <span id="year"></span> Leodan García. Todos los derechos reservados.</div>
 </main>
 
-<script src="/assets/js/main.js"></script>
+<script src="assets/js/main.js"></script>
 <script>
   document.getElementById("year").textContent = new Date().getFullYear();
 </script>
