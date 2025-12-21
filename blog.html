@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Blog — Leodan García</title>
+  <meta name="description" content="Blog de Leodan García: proyectos, desarrollo y aprendizaje." />
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+  <div class="container">
+
+    <header class="nav">
+      <a class="brand" href="index.html">
+        <span>Leodan García</span>
+        <span class="badge">Blog</span>
+      </a>
+      <nav class="navlinks">
+        <a href="index.html#projects">Proyectos</a>
+        <a href="index.html#contact">Contacto</a>
+        <a href="index.html">Inicio</a>
+      </nav>
+    </header>
+
+    <section class="card section">
+      <h2>Blog</h2>
+      <p>Posts cortos, prácticos y directos: avances, ideas, tutoriales y lecciones aprendidas.</p>
+    </section>
+
+    <section class="card section">
+      <h2>Posts</h2>
+
+      <div class="grid">
+        <article class="item">
+          <h3>Bienvenido a leodan.dev</h3>
+          <p>Qué vas a encontrar aquí y cómo voy a documentar mis proyectos.</p>
+          <div class="tags">
+            <span class="tag">Inicio</span><span class="tag">Marca</span>
+          </div>
+          <div class="links">
+            <a href="posts/welcome.html">Leer</a>
+          </div>
+        </article>
+
+        <!-- Duplica este bloque para nuevos posts -->
+        <article class="item">
+          <h3>Nuevo post (título)</h3>
+          <p>Resumen corto del post para que se vea profesional.</p>
+          <div class="tags">
+            <span class="tag">Dev</span><span class="tag">Notas</span>
+          </div>
+          <div class="links">
+            <a href="posts/welcome.html">Leer</a>
+          </div>
+        </article>
+
+        <article class="item">
+          <h3>Nuevo post (título)</h3>
+          <p>Otro resumen corto.</p>
+          <div class="tags">
+            <span class="tag">Flutter</span><span class="tag">Proyecto</span>
+          </div>
+          <div class="links">
+            <a href="posts/welcome.html">Leer</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <span>© <span id="year"></span> Leodan García</span>
+      <span class="small"><a href="index.html">Volver al inicio</a></span>
+    </footer>
+
+  </div>
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
