@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sobre mí — Leodan García</title>
+  <link rel="stylesheet" href="/assets/css/style.css" />
+</head>
+<body>
+
+<header class="nav">
+  <div class="container navbar">
+    <a class="brand" href="/"><div class="logo">LG</div><div>leodan.dev</div></a>
+    <nav class="menu">
+      <a href="/">Inicio</a>
+      <a class="active" href="/about-me/">Sobre mí</a>
+      <a href="/projects/">Proyectos</a>
+      <a href="/blog/">Blog</a>
+    </nav>
+    <div class="actions">
+      <button class="iconbtn" id="themeToggle" aria-label="Cambiar tema">🌓</button>
+    </div>
+  </div>
+</header>
+
+<main class="container hero">
+  <section class="card section">
+    <h1 style="margin:0 0 6px">Sobre mí</h1>
+    <p>
+      Soy <strong>Leodan García</strong>, estudiante de <strong>Ingeniería de Software (6to semestre)</strong> en la
+      <strong>UTEG</strong>. Me considero <strong>desarrollador Frontend</strong> con enfoque en
+      <strong>Dart y Flutter</strong>, y también tengo conocimientos en <strong>Python</strong>.
+    </p>
+    <p style="margin-top:10px">
+      Me gusta crear productos reales: apps con UI limpia, funcionalidades útiles y automatización cuando hace falta.
+      He trabajado en proyectos académicos y personales, y actualmente desarrollo una app por pasantías: <strong>JaraSecurity</strong>.
+    </p>
+
+    <div class="pillrow" style="margin-top:14px">
+      <div class="pill">Flutter / Dart</div>
+      <div class="pill">Python</div>
+      <div class="pill">n8n</div>
+      <div class="pill">Dashboards</div>
+      <div class="pill">Cloud Run</div>
+    </div>
+  </section>
+
+  <section class="grid">
+    <div class="card col-6 section">
+      <h2>Educación</h2>
+      <div class="item">
+        <h3>UTEG</h3>
+        <p>Universidad Tecnológica Empresarial de Guayaquil — Ingeniería de Software (6to semestre).</p>
+      </div>
+    </div>
+
+    <div class="card col-6 section">
+      <h2>Perfiles</h2>
+      <div class="list">
+        <div class="item"><h3>GitHub</h3><p><a href="https://github.com/leodan87" target="_blank" rel="noreferrer">@leodan87</a></p></div>
+        <div class="item"><h3>Instagram</h3><p><a href="https://instagram.com/leo_dangg" target="_blank" rel="noreferrer">@leo_dangg</a></p></div>
+        <div class="item"><h3>X (Twitter)</h3><p><a href="https://x.com/LeodanGarcia4" target="_blank" rel="noreferrer">@LeodanGarcia4</a></p></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="footer">© <span id="year"></span> Leodan García.</div>
+</main>
+
+<script src="/assets/js/main.js"></script>
+<script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+</body>
+</html>

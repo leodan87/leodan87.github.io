@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Blog — Leodan García</title>
+  <link rel="stylesheet" href="/assets/css/style.css" />
+</head>
+<body>
+
+<header class="nav">
+  <div class="container navbar">
+    <a class="brand" href="/"><div class="logo">LG</div><div>leodan.dev</div></a>
+    <nav class="menu">
+      <a href="/">Inicio</a>
+      <a href="/about-me/">Sobre mí</a>
+      <a href="/projects/">Proyectos</a>
+      <a class="active" href="/blog/">Blog</a>
+    </nav>
+    <div class="actions">
+      <button class="iconbtn" id="themeToggle" aria-label="Cambiar tema">🌓</button>
+    </div>
+  </div>
+</header>
+
+<main class="container hero">
+  <section class="card section">
+    <h1 style="margin:0 0 6px">Blog</h1>
+    <p>Publicaciones y notas técnicas. (Aquí podemos ir creando posts cuando quieras).</p>
+  </section>
+
+  <section class="grid">
+    <div class="card col-12 section">
+      <div class="list">
+        <div class="item">
+          <h3>Próximamente: Cómo construí AlertaEstudiantil</h3>
+          <p>Arquitectura, score de riesgo, automatización con n8n y despliegue en Cloud Run.</p>
+          <div class="tags"><span class="tag">Flutter</span><span class="tag">n8n</span><span class="tag">Cloud</span></div>
+        </div>
+
+        <div class="item">
+          <h3>Próximamente: Buenas prácticas de UI en Flutter</h3>
+          <p>Patrones de diseño, consistencia visual y performance en móvil.</p>
+          <div class="tags"><span class="tag">Flutter</span><span class="tag">UI</span><span class="tag">Performance</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="footer">© <span id="year"></span> Leodan García.</div>
+</main>
+
+<script src="/assets/js/main.js"></script>
+<script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+</body>
+</html>
