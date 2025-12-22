@@ -152,15 +152,14 @@ h1{
   font-size:13px;
 }
 
-/* ✅ BOTONERA: 1 SOLA FILA, PEGADOS */
+/* ✅ SOCIAL ICONS (Elegant with Colors) ===== */
 .social{
   display:flex !important;
   flex-wrap:nowrap !important;
   justify-content:center;
-  gap:6px;
-  margin-top:16px;
+  gap:8px;
+  margin-top:18px;
   align-items:center;
-
   overflow-x:auto;
   overflow-y:hidden;
   -webkit-overflow-scrolling:touch;
@@ -175,56 +174,119 @@ h1{
 .social::-webkit-scrollbar-track{background:transparent}
 
 .social a{
-  width:46px;
-  height:46px;
-  border-radius:16px;
+  width:48px;
+  height:48px;
+  border-radius:14px;
   border:1px solid var(--border);
-  background: color-mix(in srgb, var(--card) 86%, transparent);
   display:grid;
   place-items:center;
   position:relative;
   flex:0 0 auto;
-  transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease, filter .12s ease;
+  transition: all .3s cubic-bezier(0.4, 0, 0.2, 1);
   -webkit-tap-highlight-color: transparent;
 }
 
-/* por defecto: íconos "fill" */
 .social a svg{
-  width:20px;
-  height:20px;
+  width:22px;
+  height:22px;
   fill:currentColor;
   display:block;
+  position:relative;
+  z-index:1;
+  transition: transform .3s ease;
 }
 
-.social a:hover,
-.social a:focus-visible{
-  border-color: color-mix(in srgb, var(--text) 18%, var(--border));
-  box-shadow:
-    0 0 0 1px color-mix(in srgb, var(--border) 40%, transparent),
-    0 0 22px var(--glow, rgba(124,92,255,.35));
+.social a:hover svg{
+  transform: scale(1.1) rotate(5deg);
 }
+
 .social a:active{
-  transform: scale(.98);
-  box-shadow:
-    0 0 0 1px color-mix(in srgb, var(--border) 40%, transparent),
-    0 0 26px var(--glow, rgba(124,92,255,.45));
+  transform: scale(.96);
 }
 
-/* Asignar glow por red */
-.social a.gh{ --glow: var(--glow-gh); }
-.social a.ig{ --glow: var(--glow-ig); }
-.social a.x{  --glow: var(--glow-x); }
-.social a.mail{ --glow: var(--glow-mail); }
-.social a.support{ --glow: var(--glow-support); }
-.social a.discord{ --glow: var(--glow-discord); }
+/* GitHub - Azul */
+.social a.gh{
+  background: linear-gradient(135deg, rgba(59,130,246,.25), rgba(59,130,246,.15));
+  color:#3b82f6;
+  border-color: color-mix(in srgb, #3b82f6 25%, var(--border));
+}
+.social a.gh:hover{
+  background: linear-gradient(135deg, rgba(59,130,246,.35), rgba(59,130,246,.25));
+  border-color: color-mix(in srgb, #3b82f6 40%, var(--border));
+  box-shadow: 0 8px 20px rgba(59,130,246,.3);
+  transform: translateY(-2px);
+}
 
-/* ✅ Instagram: forzar stroke (para que NO se vea como “cuadro raro”) */
+/* Instagram - Gradiente rosa/morado */
+.social a.ig{
+  background: linear-gradient(135deg, rgba(255,0,128,.25), rgba(217,70,239,.15));
+  color:#ff0080;
+  border-color: color-mix(in srgb, #ff0080 25%, var(--border));
+}
+.social a.ig:hover{
+  background: linear-gradient(135deg, rgba(255,0,128,.35), rgba(217,70,239,.25));
+  border-color: color-mix(in srgb, #ff0080 40%, var(--border));
+  box-shadow: 0 8px 20px rgba(255,0,128,.3);
+  transform: translateY(-2px);
+}
 .social a.ig svg{
   fill:none !important;
   stroke:currentColor !important;
   stroke-width:2;
   stroke-linecap:round;
   stroke-linejoin:round;
+}
+
+/* X (Twitter) - Blanco/Gris */
+.social a.x{
+  background: linear-gradient(135deg, rgba(255,255,255,.15), rgba(148,163,184,.1));
+  color:var(--text);
+  border-color: color-mix(in srgb, var(--text) 20%, var(--border));
+}
+.social a.x:hover{
+  background: linear-gradient(135deg, rgba(255,255,255,.25), rgba(148,163,184,.15));
+  border-color: color-mix(in srgb, var(--text) 35%, var(--border));
+  box-shadow: 0 8px 20px rgba(255,255,255,.15);
+  transform: translateY(-2px);
+}
+
+/* Email - Cyan */
+.social a.mail{
+  background: linear-gradient(135deg, var(--brand2), rgba(77,214,255,.15));
+  color:#ffffff;
+  border-color: color-mix(in srgb, var(--brand2) 40%, var(--border));
+  box-shadow: 0 4px 12px rgba(77,214,255,.2);
+}
+.social a.mail:hover{
+  background: linear-gradient(135deg, #4dd6ff, var(--brand2));
+  box-shadow: 0 8px 24px rgba(77,214,255,.35);
+  transform: translateY(-2px);
+}
+
+/* Support - Morado */
+.social a.support{
+  background: linear-gradient(135deg, var(--brand), rgba(124,92,255,.15));
+  color:#ffffff;
+  border-color: color-mix(in srgb, var(--brand) 40%, var(--border));
+  box-shadow: 0 4px 12px rgba(124,92,255,.2);
+}
+.social a.support:hover{
+  background: linear-gradient(135deg, #9b7dff, var(--brand));
+  box-shadow: 0 8px 24px rgba(124,92,255,.35);
+  transform: translateY(-2px);
+}
+
+/* Discord - Morado Discord */
+.social a.discord{
+  background: linear-gradient(135deg, rgba(88,101,242,.25), rgba(88,101,242,.15));
+  color:#5865f2;
+  border-color: color-mix(in srgb, #5865f2 25%, var(--border));
+}
+.social a.discord:hover{
+  background: linear-gradient(135deg, rgba(88,101,242,.35), rgba(88,101,242,.25));
+  border-color: color-mix(in srgb, #5865f2 40%, var(--border));
+  box-shadow: 0 8px 20px rgba(88,101,242,.3);
+  transform: translateY(-2px);
 }
 
 /* ===== ACTION BUTTONS (Professional Style) ===== */
