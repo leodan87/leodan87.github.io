@@ -5,22 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Leodan García — Frontend (Dart/Flutter)</title>
   <meta name="description" content="Portafolio de Leodan García — Frontend Developer (Dart/Flutter) con conocimientos en Python. Proyectos: LockPass, JaraSecurity, AlertaEstudiantil." />
-  <link rel="stylesheet" href="/assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/style.css?v=2" />
 </head>
 <body>
 
 <header class="nav">
   <div class="container navbar">
-    <a class="brand" href="/">
+    <a class="brand" href="index.html">
       <div class="logo">LG</div>
       <div>leodan.dev</div>
     </a>
 
     <nav class="menu">
-      <a class="active" href="/">Inicio</a>
-      <a href="/about-me/">Sobre mí</a>
-      <a href="/projects/">Proyectos</a>
-      <a href="/blog/">Blog</a>
+      <a class="active" href="index.html">Inicio</a>
+      <a href="about-me/index.html">Sobre mí</a>
+      <a href="projects/index.html">Proyectos</a>
+      <a href="blog/index.html">Blog</a>
     </nav>
 
     <div class="actions">
@@ -38,17 +38,11 @@
 
 <main class="container hero">
   <section class="card hero-inner">
-    <img class="avatar" src="/assets/img/profile.jpg" alt="Foto de Leodan García" />
+    <img class="avatar" src="assets/img/profile.jpg" alt="Foto de Leodan García" />
 
     <div>
       <h1>Leodan García</h1>
-      <p class="subtitle">Desarrollador Frontend (Dart/Flutter) · Python · Automatización</p>
-
-      <div class="pillrow">
-        <div class="pill">UTEG · 6to semestre · Ingeniería de Software</div>
-        <div class="pill">Ecuador</div>
-        <div class="pill">Open to opportunities</div>
-      </div>
+      <p class="subtitle animated-gradient">Desarrollador Frontend (Dart/Flutter) · Python · Automatización</p>
 
       <div class="social" aria-label="Redes sociales">
         <a class="gh" href="https://github.com/leodan87" target="_blank" rel="noreferrer" aria-label="GitHub" title="GitHub @leodan87">
@@ -57,7 +51,6 @@
           </svg>
         </a>
 
-        <!-- ✅ Instagram corregido -->
         <a class="ig" href="https://instagram.com/leo_dangg" target="_blank" rel="noreferrer" aria-label="Instagram" title="Instagram @leo_dangg">
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <rect x="3" y="3" width="18" height="18" rx="5"></rect>
@@ -91,14 +84,19 @@
         </a>
       </div>
 
+      <div class="pillrow">
+        <div class="pill">UTEG · 6to semestre · Ingeniería de Software</div>
+        <div class="pill">Ecuador</div>
+      </div>
+
       <div class="action-buttons">
-        <a class="action-btn primary-action" href="/projects/">
+        <a class="action-btn primary-action" href="projects/index.html">
           <span class="btn-label">Ver Proyectos</span>
         </a>
-        <a class="action-btn" href="/about-me/">
+        <a class="action-btn" href="about-me/index.html">
           <span class="btn-label">Sobre Mí</span>
         </a>
-        <a class="action-btn" href="/blog/">
+        <a class="action-btn" href="blog/index.html">
           <span class="btn-label">Blog</span>
         </a>
       </div>
@@ -116,15 +114,49 @@
         <div class="item">
           <h3>Frontend Mobile</h3>
           <p>Flutter + buenas prácticas, UI consistente, rendimiento y experiencia de usuario.</p>
-          <div class="tags">
-            <span class="tag">Flutter</span><span class="tag">Dart</span><span class="tag">UI/UX</span>
+          <div class="tech-showcase">
+            <div class="tech-item flutter">
+              <svg viewBox="0 0 24 24" class="tech-icon">
+                <path d="M14.5 2L6 10.5 9.5 14l8.5-8.5L14.5 2zm0 8L11 13.5l3.5 3.5L22 9.5 14.5 10zM9.5 14L6 17.5l3.5 3.5L18 12.5 14.5 9l-5 5z" fill="url(#flutterMainGrad)"/>
+                <defs>
+                  <linearGradient id="flutterMainGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#42A5F5"/>
+                    <stop offset="100%" style="stop-color:#0D47A1"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+              <span>Flutter</span>
+            </div>
+            <div class="tech-item dart">
+              <svg viewBox="0 0 24 24" class="tech-icon">
+                <path d="M4.105 4.105S9.158 1.58 11.684 3.642c1.916 1.566 1.155 5.934-1.516 8.605-2.671 2.671-7.039 3.432-8.605 1.516C1.582 11.158 4.105 4.105 4.105 4.105zm9.789 9.789s5.053-2.522 7.115-.458c1.566 1.566.807 5.934-1.864 8.605-2.671 2.671-7.039 3.432-8.605 1.516-2.064-2.062.354-7.115.354-9.663z" fill="url(#dartMainGrad)"/>
+                <defs>
+                  <linearGradient id="dartMainGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#00D2B8"/>
+                    <stop offset="100%" style="stop-color:#00A8E1"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+              <span>Dart</span>
+            </div>
+            <span class="tech-tag">UI/UX</span>
           </div>
         </div>
         <div class="item">
           <h3>Automatización & Integraciones</h3>
           <p>Flujos con n8n, emails automáticos, dashboards y lógica de negocio.</p>
-          <div class="tags">
-            <span class="tag">n8n</span><span class="tag">APIs</span><span class="tag">Dashboards</span>
+          <div class="tech-showcase">
+            <div class="tech-item n8n">
+              <svg viewBox="0 0 24 24" class="tech-icon">
+                <rect x="3" y="3" width="7" height="7" rx="1" fill="#FF6D5A"/>
+                <rect x="14" y="3" width="7" height="7" rx="1" fill="#FF6D5A"/>
+                <rect x="3" y="14" width="7" height="7" rx="1" fill="#FF6D5A"/>
+                <rect x="14" y="14" width="7" height="7" rx="1" fill="#FF6D5A"/>
+              </svg>
+              <span>n8n</span>
+            </div>
+            <span class="tech-tag">APIs</span>
+            <span class="tech-tag">Dashboards</span>
           </div>
         </div>
       </div>
@@ -136,22 +168,70 @@
         <div class="item">
           <h3>🥈 Hackathon UTEG — 2do lugar</h3>
           <p><strong>AlertaEstudiantil</strong>: detecta riesgo académico, envía alertas automáticas al docente y recomienda acciones con IA.</p>
-          <div class="tags">
-            <span class="tag">Flutter</span><span class="tag">n8n</span><span class="tag">Cloud Run</span><span class="tag">AI</span>
+          <div class="tech-showcase">
+            <div class="tech-item flutter">
+              <svg viewBox="0 0 24 24" class="tech-icon">
+                <path d="M14.5 2L6 10.5 9.5 14l8.5-8.5L14.5 2zm0 8L11 13.5l3.5 3.5L22 9.5 14.5 10zM9.5 14L6 17.5l3.5 3.5L18 12.5 14.5 9l-5 5z" fill="url(#flutterH1)"/>
+                <defs>
+                  <linearGradient id="flutterH1" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#42A5F5"/>
+                    <stop offset="100%" style="stop-color:#0D47A1"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+              <span>Flutter</span>
+            </div>
+            <div class="tech-item n8n">
+              <svg viewBox="0 0 24 24" class="tech-icon">
+                <rect x="3" y="3" width="7" height="7" rx="1" fill="#FF6D5A"/>
+                <rect x="14" y="3" width="7" height="7" rx="1" fill="#FF6D5A"/>
+                <rect x="3" y="14" width="7" height="7" rx="1" fill="#FF6D5A"/>
+                <rect x="14" y="14" width="7" height="7" rx="1" fill="#FF6D5A"/>
+              </svg>
+              <span>n8n</span>
+            </div>
+            <span class="tech-tag">Cloud Run</span>
+            <span class="tech-tag">AI</span>
           </div>
         </div>
         <div class="item">
           <h3>JaraSecurity (Pasantías)</h3>
           <p>App para empresa de seguridad: reportes, control y módulos para supervisión.</p>
-          <div class="tags">
-            <span class="tag">Flutter</span><span class="tag">Mobile</span><span class="tag">Security App</span>
+          <div class="tech-showcase">
+            <div class="tech-item flutter">
+              <svg viewBox="0 0 24 24" class="tech-icon">
+                <path d="M14.5 2L6 10.5 9.5 14l8.5-8.5L14.5 2zm0 8L11 13.5l3.5 3.5L22 9.5 14.5 10zM9.5 14L6 17.5l3.5 3.5L18 12.5 14.5 9l-5 5z" fill="url(#flutterH2)"/>
+                <defs>
+                  <linearGradient id="flutterH2" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#42A5F5"/>
+                    <stop offset="100%" style="stop-color:#0D47A1"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+              <span>Flutter</span>
+            </div>
+            <span class="tech-tag">Mobile</span>
+            <span class="tech-tag">Security App</span>
           </div>
         </div>
         <div class="item">
           <h3>LockPass</h3>
           <p>App para guardar cuentas y contraseñas, enfocada en simplicidad y orden.</p>
-          <div class="tags">
-            <span class="tag">Flutter</span><span class="tag">UX</span><span class="tag">Storage</span>
+          <div class="tech-showcase">
+            <div class="tech-item flutter">
+              <svg viewBox="0 0 24 24" class="tech-icon">
+                <path d="M14.5 2L6 10.5 9.5 14l8.5-8.5L14.5 2zm0 8L11 13.5l3.5 3.5L22 9.5 14.5 10zM9.5 14L6 17.5l3.5 3.5L18 12.5 14.5 9l-5 5z" fill="url(#flutterH3)"/>
+                <defs>
+                  <linearGradient id="flutterH3" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#42A5F5"/>
+                    <stop offset="100%" style="stop-color:#0D47A1"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+              <span>Flutter</span>
+            </div>
+            <span class="tech-tag">UX</span>
+            <span class="tech-tag">Storage</span>
           </div>
         </div>
       </div>
@@ -209,7 +289,7 @@
   <div class="footer">© <span id="year"></span> Leodan García. Todos los derechos reservados.</div>
 </main>
 
-<script src="/assets/js/main.js"></script>
+<script src="assets/js/main.js"></script>
 <script>
   document.getElementById("year").textContent = new Date().getFullYear();
 </script>

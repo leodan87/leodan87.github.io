@@ -5,39 +5,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Proyectos — Leodan García</title>
   <meta name="description" content="Proyectos de Leodan García: AlertaEstudiantil, JaraSecurity, LockPass." />
-  <link rel="stylesheet" href="../assets/css/style.css" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=2" />
 </head>
 <body>
 
 <header class="nav">
   <div class="container navbar">
-    <a class="brand" href="../">
+    <a class="brand" href="../index.html">
       <div class="logo">LG</div>
       <div>leodan.dev</div>
     </a>
 
     <nav class="menu">
-      <a href="../">Inicio</a>
-      <a href="../about-me/">Sobre mí</a>
-      <a class="active" href="./">Proyectos</a>
-      <a href="../blog/">Blog</a>
+      <a href="../index.html">Inicio</a>
+      <a href="../about-me/index.html">Sobre mí</a>
+      <a class="active" href="index.html">Proyectos</a>
+      <a href="../blog/index.html">Blog</a>
     </nav>
 
     <div class="actions">
       <button class="iconbtn" id="themeToggle" aria-label="Cambiar tema" type="button">
-        <svg class="icon icon-moon" viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a7 7 0 1 0 9.8 9.8Z"></path>
+        <svg class="moon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M21 14.2A8.5 8.5 0 0 1 9.8 3a7 7 0 1 0 11.2 11.2Z"/>
         </svg>
-        <svg class="icon icon-sun" viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12Z"></path>
-          <path d="M12 2v2"></path>
-          <path d="M12 20v2"></path>
-          <path d="M4.93 4.93l1.41 1.41"></path>
-          <path d="M17.66 17.66l1.41 1.41"></path>
-          <path d="M2 12h2"></path>
-          <path d="M20 12h2"></path>
-          <path d="M6.34 17.66l-1.41 1.41"></path>
-          <path d="M19.07 4.93l-1.41 1.41"></path>
+        <svg class="sun" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 18a6 6 0 1 1 0-12 6 6 0 0 1 0 12Zm0-16h1v3h-1V2Zm0 19h1v3h-1v-3ZM2 11h3v1H2v-1Zm19 0h3v1h-3v-1ZM4.2 4.2l2.1 2.1-.7.7-2.1-2.1.7-.7Zm14.2 14.2 2.1 2.1-.7.7-2.1-2.1.7-.7ZM19.8 4.2l.7.7-2.1 2.1-.7-.7 2.1-2.1ZM6.3 17.7l.7.7-2.1 2.1-.7-.7 2.1-2.1Z"/>
         </svg>
       </button>
     </div>
@@ -50,45 +42,185 @@
     <p>Proyectos destacados y lo que resolvieron.</p>
   </section>
 
-  <section class="grid">
-    <div class="card col-12 section">
-      <div class="list">
-        <div class="item">
-          <h3>AlertaEstudiantil (Hackathon UTEG — 2do lugar)</h3>
-          <p>
-            App que detecta estudiantes con riesgo académico, genera un score, muestra un dashboard y envía alertas por correo al docente
-            con recomendaciones generadas con IA y automatizadas con n8n.
-          </p>
-          <div class="tags">
-            <span class="tag">Flutter</span>
-            <span class="tag">Dashboard</span>
-            <span class="tag">n8n</span>
-            <span class="tag">Cloud Run</span>
-            <span class="tag">AI</span>
-          </div>
+  <section class="projects-grid">
+    <!-- Proyecto AlertaEstudiantil -->
+    <div class="project-card featured">
+      <div class="project-image">
+        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&auto=format&fit=crop" alt="AlertaEstudiantil Dashboard" />
+        <div class="project-badge">🥈 2do Lugar Hackathon</div>
+      </div>
+      <div class="project-content">
+        <div class="project-header">
+          <img src="../assets/img/uteg-logo.jpg" alt="UTEG" class="project-icon" />
+          <h3>AlertaEstudiantil</h3>
         </div>
-
-        <div class="item">
-          <h3>JaraSecurity (Pasantías)</h3>
-          <p>
-            Aplicación para empresa de seguridad: módulos para reportes, operación y control. Diseñada para crecer por roles.
-          </p>
-          <div class="tags">
-            <span class="tag">Flutter</span>
-            <span class="tag">Mobile</span>
-            <span class="tag">Roles</span>
-            <span class="tag">Reportes</span>
+        <p class="project-description">
+          App que detecta estudiantes con riesgo académico, genera un score, muestra un dashboard y envía alertas por correo al docente
+          con recomendaciones generadas con IA y automatizadas.
+        </p>
+        <div class="tech-stack">
+          <div class="tech-item flutter">
+            <svg viewBox="0 0 24 24" class="tech-icon">
+              <path d="M14.5 2L6 10.5 9.5 14l8.5-8.5L14.5 2zm0 8L11 13.5l3.5 3.5L22 9.5 14.5 10zM9.5 14L6 17.5l3.5 3.5L18 12.5 14.5 9l-5 5z" fill="url(#flutterGrad)"/>
+              <defs>
+                <linearGradient id="flutterGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:#42A5F5"/>
+                  <stop offset="100%" style="stop-color:#0D47A1"/>
+                </linearGradient>
+              </defs>
+            </svg>
+            <span>Flutter</span>
           </div>
+          <div class="tech-item dart">
+            <svg viewBox="0 0 24 24" class="tech-icon">
+              <path d="M4.105 4.105S9.158 1.58 11.684 3.642c1.916 1.566 1.155 5.934-1.516 8.605-2.671 2.671-7.039 3.432-8.605 1.516C1.582 11.158 4.105 4.105 4.105 4.105zm9.789 9.789s5.053-2.522 7.115-.458c1.566 1.566.807 5.934-1.864 8.605-2.671 2.671-7.039 3.432-8.605 1.516-2.064-2.062.354-7.115.354-9.663z" fill="url(#dartGrad)"/>
+              <defs>
+                <linearGradient id="dartGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:#00D2B8"/>
+                  <stop offset="100%" style="stop-color:#00A8E1"/>
+                </linearGradient>
+              </defs>
+            </svg>
+            <span>Dart</span>
+          </div>
+          <div class="tech-item n8n">
+            <svg viewBox="0 0 24 24" class="tech-icon">
+              <rect x="3" y="3" width="7" height="7" rx="1" fill="#FF6D5A"/>
+              <rect x="14" y="3" width="7" height="7" rx="1" fill="#FF6D5A"/>
+              <rect x="3" y="14" width="7" height="7" rx="1" fill="#FF6D5A"/>
+              <rect x="14" y="14" width="7" height="7" rx="1" fill="#FF6D5A"/>
+            </svg>
+            <span>n8n</span>
+          </div>
+          <span class="tech-tag">Cloud Run</span>
+          <span class="tech-tag">AI</span>
+          <span class="tech-tag">Dashboard</span>
         </div>
+      </div>
+    </div>
 
-        <div class="item">
+    <!-- Proyecto JaraSecurity -->
+    <div class="project-card">
+      <div class="project-image">
+        <img src="../assets/img/jara-logo.jpg" alt="JaraSecurity Logo" />
+      </div>
+      <div class="project-content">
+        <div class="project-header">
+          <div class="project-icon security">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z" fill="url(#securityGrad)"/>
+              <defs>
+                <linearGradient id="securityGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:#C9A961"/>
+                  <stop offset="100%" style="stop-color:#8B7355"/>
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+          <h3>JaraSecurity</h3>
+          <span class="project-type">Pasantías</span>
+        </div>
+        <p class="project-description">
+          Aplicación para empresa de seguridad privada: módulos para reportes, operación y control. Diseñada para crecer por roles con arquitectura escalable.
+        </p>
+        <div class="tech-stack">
+          <div class="tech-item flutter">
+            <svg viewBox="0 0 24 24" class="tech-icon">
+              <path d="M14.5 2L6 10.5 9.5 14l8.5-8.5L14.5 2zm0 8L11 13.5l3.5 3.5L22 9.5 14.5 10zM9.5 14L6 17.5l3.5 3.5L18 12.5 14.5 9l-5 5z" fill="url(#flutterGrad2)"/>
+              <defs>
+                <linearGradient id="flutterGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:#42A5F5"/>
+                  <stop offset="100%" style="stop-color:#0D47A1"/>
+                </linearGradient>
+              </defs>
+            </svg>
+            <span>Flutter</span>
+          </div>
+          <div class="tech-item dart">
+            <svg viewBox="0 0 24 24" class="tech-icon">
+              <path d="M4.105 4.105S9.158 1.58 11.684 3.642c1.916 1.566 1.155 5.934-1.516 8.605-2.671 2.671-7.039 3.432-8.605 1.516C1.582 11.158 4.105 4.105 4.105 4.105zm9.789 9.789s5.053-2.522 7.115-.458c1.566 1.566.807 5.934-1.864 8.605-2.671 2.671-7.039 3.432-8.605 1.516-2.064-2.062.354-7.115.354-9.663z" fill="url(#dartGrad2)"/>
+              <defs>
+                <linearGradient id="dartGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:#00D2B8"/>
+                  <stop offset="100%" style="stop-color:#00A8E1"/>
+                </linearGradient>
+              </defs>
+            </svg>
+            <span>Dart</span>
+          </div>
+          <span class="tech-tag">Mobile</span>
+          <span class="tech-tag">Roles</span>
+          <span class="tech-tag">Reportes</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Proyecto LockPass -->
+    <div class="project-card">
+      <div class="project-image lockpass">
+        <div class="lockpass-visual">
+          <svg viewBox="0 0 200 200" class="lock-illustration">
+            <defs>
+              <linearGradient id="lockGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#4dd6ff"/>
+                <stop offset="50%" style="stop-color:#7c5cff"/>
+                <stop offset="100%" style="stop-color:#ff4d9e"/>
+              </linearGradient>
+            </defs>
+            <rect x="60" y="90" width="80" height="70" rx="8" fill="url(#lockGrad)" opacity="0.9"/>
+            <path d="M70 90 V70 Q70 40 100 40 Q130 40 130 70 V90" stroke="url(#lockGrad)" stroke-width="12" fill="none" opacity="0.9"/>
+            <circle cx="100" cy="120" r="8" fill="#fff"/>
+            <rect x="96" y="120" width="8" height="20" rx="2" fill="#fff"/>
+          </svg>
+        </div>
+      </div>
+      <div class="project-content">
+        <div class="project-header">
+          <div class="project-icon lock">
+            <svg viewBox="0 0 24 24">
+              <rect x="5" y="11" width="14" height="10" rx="2" fill="url(#lockHeaderGrad)"/>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="url(#lockHeaderGrad)" stroke-width="2" fill="none"/>
+              <defs>
+                <linearGradient id="lockHeaderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:#7c5cff"/>
+                  <stop offset="100%" style="stop-color:#4dd6ff"/>
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
           <h3>LockPass</h3>
-          <p>App para guardar cuentas y contraseñas con enfoque en simplicidad, orden y UI clara.</p>
-          <div class="tags">
-            <span class="tag">Flutter</span>
-            <span class="tag">UX</span>
-            <span class="tag">Storage</span>
+        </div>
+        <p class="project-description">
+          App para guardar cuentas y contraseñas con enfoque en simplicidad, orden y UI clara. Seguridad local con encriptación.
+        </p>
+        <div class="tech-stack">
+          <div class="tech-item flutter">
+            <svg viewBox="0 0 24 24" class="tech-icon">
+              <path d="M14.5 2L6 10.5 9.5 14l8.5-8.5L14.5 2zm0 8L11 13.5l3.5 3.5L22 9.5 14.5 10zM9.5 14L6 17.5l3.5 3.5L18 12.5 14.5 9l-5 5z" fill="url(#flutterGrad3)"/>
+              <defs>
+                <linearGradient id="flutterGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:#42A5F5"/>
+                  <stop offset="100%" style="stop-color:#0D47A1"/>
+                </linearGradient>
+              </defs>
+            </svg>
+            <span>Flutter</span>
           </div>
+          <div class="tech-item dart">
+            <svg viewBox="0 0 24 24" class="tech-icon">
+              <path d="M4.105 4.105S9.158 1.58 11.684 3.642c1.916 1.566 1.155 5.934-1.516 8.605-2.671 2.671-7.039 3.432-8.605 1.516C1.582 11.158 4.105 4.105 4.105 4.105zm9.789 9.789s5.053-2.522 7.115-.458c1.566 1.566.807 5.934-1.864 8.605-2.671 2.671-7.039 3.432-8.605 1.516-2.064-2.062.354-7.115.354-9.663z" fill="url(#dartGrad3)"/>
+              <defs>
+                <linearGradient id="dartGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:#00D2B8"/>
+                  <stop offset="100%" style="stop-color:#00A8E1"/>
+                </linearGradient>
+              </defs>
+            </svg>
+            <span>Dart</span>
+          </div>
+          <span class="tech-tag">UX</span>
+          <span class="tech-tag">Storage</span>
+          <span class="tech-tag">Security</span>
         </div>
       </div>
     </div>
