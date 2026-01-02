@@ -1,297 +1,55 @@
-<!doctype html>
-<html lang="es" data-theme="dark">
+<!DOCTYPE html>
+<html>
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Leodan García — Frontend (Dart/Flutter)</title>
-  <meta name="description" content="Portafolio de Leodan García — Frontend Developer (Dart/Flutter) con conocimientos en Python. Proyectos: LockPass, JaraSecurity, AlertaEstudiantil." />
-  <link rel="stylesheet" href="assets/css/style.css?v=2" />
+  <base href="/">
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="Portafolio de Leodan García — Desarrollador Frontend Mobile (Dart/Flutter) con conocimientos en Python, n8n, Git y Linux">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Leodan García">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+  <link rel="icon" type="image/png" href="favicon.png"/>
+  <title>Leodan García — Frontend Developer</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <style>
+    body {
+      margin: 0;
+      background: linear-gradient(135deg, #0a0f1a 0%, #0d1420 50%, #0f1624 100%);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    .loading {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+    }
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 4px solid rgba(66, 165, 245, 0.2);
+      border-top-color: #42A5F5;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    .loading-text {
+      margin-top: 20px;
+      color: #42A5F5;
+      font-size: 18px;
+      font-weight: 600;
+    }
+  </style>
 </head>
 <body>
-
-<header class="nav">
-  <div class="container navbar">
-    <a class="brand" href="index.html">
-      <div class="logo">LG</div>
-      <div>leodan.dev</div>
-    </a>
-
-    <nav class="menu">
-      <a class="active" href="index.html">Inicio</a>
-      <a href="about-me/index.html">Sobre mí</a>
-      <a href="projects/index.html">Proyectos</a>
-      <a href="blog/index.html">Blog</a>
-    </nav>
-
-    <div class="actions">
-      <button class="iconbtn" id="themeToggle" aria-label="Cambiar tema">
-        <svg class="moon" viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M21 14.2A8.5 8.5 0 0 1 9.8 3a7 7 0 1 0 11.2 11.2Z"/>
-        </svg>
-        <svg class="sun" viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M12 18a6 6 0 1 1 0-12 6 6 0 0 1 0 12Zm0-16h1v3h-1V2Zm0 19h1v3h-1v-3ZM2 11h3v1H2v-1Zm19 0h3v1h-3v-1ZM4.2 4.2l2.1 2.1-.7.7-2.1-2.1.7-.7Zm14.2 14.2 2.1 2.1-.7.7-2.1-2.1.7-.7ZM19.8 4.2l.7.7-2.1 2.1-.7-.7 2.1-2.1ZM6.3 17.7l.7.7-2.1 2.1-.7-.7 2.1-2.1Z"/>
-        </svg>
-      </button>
-    </div>
+  <div class="loading">
+    <div class="spinner"></div>
+    <div class="loading-text">Cargando portafolio...</div>
   </div>
-</header>
-
-<main class="container hero">
-  <section class="card hero-inner">
-    <img class="avatar" src="assets/img/profile.jpg" alt="Foto de Leodan García" />
-
-    <div>
-      <h1>Leodan García</h1>
-      <p class="subtitle animated-gradient">Desarrollador Frontend (Dart/Flutter) · Python · Automatización</p>
-
-      <div class="social" aria-label="Redes sociales">
-        <a class="gh" href="https://github.com/leodan87" target="_blank" rel="noreferrer" aria-label="GitHub" title="GitHub @leodan87">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M12 .8a11.2 11.2 0 0 0-3.5 21.9c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.4-4-1.4-.6-1.4-1.4-1.7-1.4-1.7-1.1-.8.1-.8.1-.8 1.2.1 1.9 1.2 1.9 1.2 1.1 1.9 2.9 1.3 3.6 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.8 4 18.8 4.3 18.8 4.3c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.9 1.2 3.2 0 4.6-2.7 5.6-5.3 5.9.4.3.8 1 .8 2.1v3.1c0 .3.2.7.8.6A11.2 11.2 0 0 0 12 .8Z"/>
-          </svg>
-        </a>
-
-        <a class="ig" href="https://instagram.com/leo_dangg" target="_blank" rel="noreferrer" aria-label="Instagram" title="Instagram @leo_dangg">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <rect x="3" y="3" width="18" height="18" rx="5"></rect>
-            <circle cx="12" cy="12" r="4"></circle>
-            <circle cx="17.5" cy="6.5" r="1"></circle>
-          </svg>
-        </a>
-
-        <a class="x" href="https://x.com/LeodanGarcia4" target="_blank" rel="noreferrer" aria-label="X" title="X @LeodanGarcia4">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M18.5 2H22l-7.6 8.7L23 22h-6.8l-5.3-6.9L4.8 22H1.3l8.2-9.3L1 2h7l4.8 6.4L18.5 2Zm-1.2 18h1.9L6.9 4H4.9l12.4 16Z"/>
-          </svg>
-        </a>
-
-        <a class="mail" href="mailto:leogarcia@leodan.dev" aria-label="Email profesional" title="Email: leogarcia@leodan.dev">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M4 5h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Zm0 2v.3l8 5.2 8-5.2V7H4Zm16 2.1-7.5 4.9a1 1 0 0 1-1 0L4 9.1V17h16V9.1Z"/>
-          </svg>
-        </a>
-
-        <a class="support" href="mailto:support@leodan.dev" aria-label="Soporte" title="Soporte: support@leodan.dev">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M12 2a9 9 0 0 0-9 9v6a3 3 0 0 0 3 3h2v-8H5v-1a7 7 0 0 1 14 0v1h-3v8h2a3 3 0 0 0 3-3v-6a9 9 0 0 0-9-9Z"/>
-          </svg>
-        </a>
-
-        <a class="discord" href="https://discord.com/app" target="_blank" rel="noreferrer" aria-label="Discord" title="Discord: leo_garcia">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M19.5 5.2A13.8 13.8 0 0 0 16 4l-.2.4a12 12 0 0 1 2.9 1.5 10.8 10.8 0 0 0-3.3-1.2 10.8 10.8 0 0 0-6.8 0A10.8 10.8 0 0 0 5.3 5.9 12 12 0 0 1 8.2 4.4L8 4a13.8 13.8 0 0 0-3.5 1.2C2.8 8 2.3 10.8 2.5 13.6c1.4 1 2.9 1.7 4.6 2.1l.7-1.2c-.6-.2-1.2-.4-1.7-.8l.4-.3c3.2 1.4 6.7 1.4 9.8 0l.4.3c-.5.4-1.1.6-1.7.8l.7 1.2c1.7-.4 3.2-1.1 4.6-2.1.3-2.8-.2-5.6-1.9-8.4ZM9.2 12.6c-.6 0-1.1-.6-1.1-1.3 0-.7.5-1.3 1.1-1.3s1.1.6 1.1 1.3c0 .7-.5 1.3-1.1 1.3Zm5.6 0c-.6 0-1.1-.6-1.1-1.3 0-.7.5-1.3 1.1-1.3s1.1.6 1.1 1.3c0 .7-.5 1.3-1.1 1.3Z"/>
-          </svg>
-        </a>
-      </div>
-
-      <div class="pillrow">
-        <div class="pill">UTEG · 6to semestre · Ingeniería de Software</div>
-        <div class="pill">Ecuador</div>
-      </div>
-
-      <div class="action-buttons">
-        <a class="action-btn primary-action" href="projects/index.html">
-          <span class="btn-label">Ver Proyectos</span>
-        </a>
-        <a class="action-btn" href="about-me/index.html">
-          <span class="btn-label">Sobre Mí</span>
-        </a>
-        <a class="action-btn" href="blog/index.html">
-          <span class="btn-label">Blog</span>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <section class="grid">
-    <div class="card col-6 section professional-section">
-      <h2 class="section-title">Lo que hago</h2>
-      <p class="section-description">
-        Desarrollo interfaces limpias y rápidas para apps móviles con Flutter,
-        y también automatizo procesos (notificaciones, correos, workflows) cuando el proyecto lo requiere.
-      </p>
-      <div class="list">
-        <div class="item">
-          <h3>Frontend Mobile</h3>
-          <p>Flutter + buenas prácticas, UI consistente, rendimiento y experiencia de usuario.</p>
-          <div class="tech-showcase">
-            <div class="tech-item flutter">
-              <svg viewBox="0 0 24 24" class="tech-icon">
-                <path d="M14.5 2L6 10.5 9.5 14l8.5-8.5L14.5 2zm0 8L11 13.5l3.5 3.5L22 9.5 14.5 10zM9.5 14L6 17.5l3.5 3.5L18 12.5 14.5 9l-5 5z" fill="url(#flutterMainGrad)"/>
-                <defs>
-                  <linearGradient id="flutterMainGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" style="stop-color:#42A5F5"/>
-                    <stop offset="100%" style="stop-color:#0D47A1"/>
-                  </linearGradient>
-                </defs>
-              </svg>
-              <span>Flutter</span>
-            </div>
-            <div class="tech-item dart">
-              <svg viewBox="0 0 24 24" class="tech-icon">
-                <path d="M4.105 4.105S9.158 1.58 11.684 3.642c1.916 1.566 1.155 5.934-1.516 8.605-2.671 2.671-7.039 3.432-8.605 1.516C1.582 11.158 4.105 4.105 4.105 4.105zm9.789 9.789s5.053-2.522 7.115-.458c1.566 1.566.807 5.934-1.864 8.605-2.671 2.671-7.039 3.432-8.605 1.516-2.064-2.062.354-7.115.354-9.663z" fill="url(#dartMainGrad)"/>
-                <defs>
-                  <linearGradient id="dartMainGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" style="stop-color:#00D2B8"/>
-                    <stop offset="100%" style="stop-color:#00A8E1"/>
-                  </linearGradient>
-                </defs>
-              </svg>
-              <span>Dart</span>
-            </div>
-            <span class="tech-tag">UI/UX</span>
-          </div>
-        </div>
-        <div class="item">
-          <h3>Automatización & Integraciones</h3>
-          <p>Flujos con n8n, emails automáticos, dashboards y lógica de negocio.</p>
-          <div class="tech-showcase">
-            <div class="tech-item n8n">
-              <svg viewBox="0 0 24 24" class="tech-icon">
-                <rect x="3" y="3" width="7" height="7" rx="1" fill="#FF6D5A"/>
-                <rect x="14" y="3" width="7" height="7" rx="1" fill="#FF6D5A"/>
-                <rect x="3" y="14" width="7" height="7" rx="1" fill="#FF6D5A"/>
-                <rect x="14" y="14" width="7" height="7" rx="1" fill="#FF6D5A"/>
-              </svg>
-              <span>n8n</span>
-            </div>
-            <span class="tech-tag">APIs</span>
-            <span class="tech-tag">Dashboards</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="card col-6 section professional-section">
-      <h2 class="section-title">Highlights</h2>
-      <div class="list">
-        <div class="item">
-          <h3>🥈 Hackathon UTEG — 2do lugar</h3>
-          <p><strong>AlertaEstudiantil</strong>: detecta riesgo académico, envía alertas automáticas al docente y recomienda acciones con IA.</p>
-          <div class="tech-showcase">
-            <div class="tech-item flutter">
-              <svg viewBox="0 0 24 24" class="tech-icon">
-                <path d="M14.5 2L6 10.5 9.5 14l8.5-8.5L14.5 2zm0 8L11 13.5l3.5 3.5L22 9.5 14.5 10zM9.5 14L6 17.5l3.5 3.5L18 12.5 14.5 9l-5 5z" fill="url(#flutterH1)"/>
-                <defs>
-                  <linearGradient id="flutterH1" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" style="stop-color:#42A5F5"/>
-                    <stop offset="100%" style="stop-color:#0D47A1"/>
-                  </linearGradient>
-                </defs>
-              </svg>
-              <span>Flutter</span>
-            </div>
-            <div class="tech-item n8n">
-              <svg viewBox="0 0 24 24" class="tech-icon">
-                <rect x="3" y="3" width="7" height="7" rx="1" fill="#FF6D5A"/>
-                <rect x="14" y="3" width="7" height="7" rx="1" fill="#FF6D5A"/>
-                <rect x="3" y="14" width="7" height="7" rx="1" fill="#FF6D5A"/>
-                <rect x="14" y="14" width="7" height="7" rx="1" fill="#FF6D5A"/>
-              </svg>
-              <span>n8n</span>
-            </div>
-            <span class="tech-tag">Cloud Run</span>
-            <span class="tech-tag">AI</span>
-          </div>
-        </div>
-        <div class="item">
-          <h3>JaraSecurity (Pasantías)</h3>
-          <p>App para empresa de seguridad: reportes, control y módulos para supervisión.</p>
-          <div class="tech-showcase">
-            <div class="tech-item flutter">
-              <svg viewBox="0 0 24 24" class="tech-icon">
-                <path d="M14.5 2L6 10.5 9.5 14l8.5-8.5L14.5 2zm0 8L11 13.5l3.5 3.5L22 9.5 14.5 10zM9.5 14L6 17.5l3.5 3.5L18 12.5 14.5 9l-5 5z" fill="url(#flutterH2)"/>
-                <defs>
-                  <linearGradient id="flutterH2" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" style="stop-color:#42A5F5"/>
-                    <stop offset="100%" style="stop-color:#0D47A1"/>
-                  </linearGradient>
-                </defs>
-              </svg>
-              <span>Flutter</span>
-            </div>
-            <span class="tech-tag">Mobile</span>
-            <span class="tech-tag">Security App</span>
-          </div>
-        </div>
-        <div class="item">
-          <h3>LockPass</h3>
-          <p>App para guardar cuentas y contraseñas, enfocada en simplicidad y orden.</p>
-          <div class="tech-showcase">
-            <div class="tech-item flutter">
-              <svg viewBox="0 0 24 24" class="tech-icon">
-                <path d="M14.5 2L6 10.5 9.5 14l8.5-8.5L14.5 2zm0 8L11 13.5l3.5 3.5L22 9.5 14.5 10zM9.5 14L6 17.5l3.5 3.5L18 12.5 14.5 9l-5 5z" fill="url(#flutterH3)"/>
-                <defs>
-                  <linearGradient id="flutterH3" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" style="stop-color:#42A5F5"/>
-                    <stop offset="100%" style="stop-color:#0D47A1"/>
-                  </linearGradient>
-                </defs>
-              </svg>
-              <span>Flutter</span>
-            </div>
-            <span class="tech-tag">UX</span>
-            <span class="tech-tag">Storage</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="card col-12 contact-section">
-      <h2 class="contact-title">Contacto Profesional</h2>
-      <p class="contact-subtitle">Estoy disponible para proyectos, colaboraciones y oportunidades</p>
-
-      <div class="contact-grid">
-        <a href="mailto:leogarcia@leodan.dev" class="contact-card">
-          <div class="contact-icon primary-icon">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <rect x="3" y="5" width="18" height="14" rx="2"/>
-              <path d="M3 7l9 6 9-6"/>
-            </svg>
-          </div>
-          <div class="contact-info">
-            <h3>Email Principal</h3>
-            <p>leogarcia@leodan.dev</p>
-            <span class="contact-badge">Proyectos & Colaboraciones</span>
-          </div>
-        </a>
-
-        <a href="mailto:support@leodan.dev" class="contact-card">
-          <div class="contact-icon support-icon">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M12 2a9 9 0 0 0-9 9v6a3 3 0 0 0 3 3h2v-8H5v-1a7 7 0 0 1 14 0v1h-3v8h2a3 3 0 0 0 3-3v-6a9 9 0 0 0-9-9Z"/>
-            </svg>
-          </div>
-          <div class="contact-info">
-            <h3>Soporte Técnico</h3>
-            <p>support@leodan.dev</p>
-            <span class="contact-badge">Consultas & Asistencia</span>
-          </div>
-        </a>
-
-        <a href="mailto:leogarcia.lsgg@gmail.com" class="contact-card">
-          <div class="contact-icon personal-icon">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-              <circle cx="12" cy="7" r="4"/>
-            </svg>
-          </div>
-          <div class="contact-info">
-            <h3>Contacto Personal</h3>
-            <p>leogarcia.lsgg@gmail.com</p>
-            <span class="contact-badge">General</span>
-          </div>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <div class="footer">© <span id="year"></span> Leodan García. Todos los derechos reservados.</div>
-</main>
-
-<script src="assets/js/main.js"></script>
-<script>
-  document.getElementById("year").textContent = new Date().getFullYear();
-</script>
+  <script src="flutter_bootstrap.js" async></script>
 </body>
 </html>
