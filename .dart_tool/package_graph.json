@@ -10,7 +10,6 @@
         "animated_text_kit",
         "flutter",
         "flutter_svg",
-        "font_awesome_flutter",
         "google_fonts",
         "url_launcher"
       ],
@@ -52,13 +51,6 @@
         "test_api",
         "vector_math",
         "vm_service"
-      ]
-    },
-    {
-      "name": "font_awesome_flutter",
-      "version": "10.9.1",
-      "dependencies": [
-        "flutter"
       ]
     },
     {

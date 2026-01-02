@@ -92,12 +92,6 @@
       "languageVersion": "3.7"
     },
     {
-      "name": "font_awesome_flutter",
-      "rootUri": "file:///C:/Users/Asus/AppData/Local/Pub/Cache/hosted/pub.dev/font_awesome_flutter-10.9.1",
-      "packageUri": "lib/",
-      "languageVersion": "3.0"
-    },
-    {
       "name": "google_fonts",
       "rootUri": "file:///C:/Users/Asus/AppData/Local/Pub/Cache/hosted/pub.dev/google_fonts-6.3.2",
       "packageUri": "lib/",

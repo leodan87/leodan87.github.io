@@ -592,24 +592,6 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _buildTechTag(String text) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(999),
-        color: Colors.white.withValues(alpha: 0.05),
-      ),
-      child: Text(
-        text,
-        style: TextStyle(
-          fontSize: 13,
-          fontWeight: FontWeight.w600,
-          color: Colors.white.withValues(alpha: 0.6),
-        ),
-      ),
-    );
-  }
-
   Widget _buildContactSection(BuildContext context, {Key? key}) {
     return Container(
       key: key,
