@@ -1,1 +1,0 @@
- C:\\Users\\Asus\\Desktop\\leodan87.github.io\\build\\web\\manifest.json:  C:\\Users\\Asus\\Desktop\\leodan87.github.io\\web\\index.html C:\\Users\\Asus\\Desktop\\leodan87.github.io\\web\\manifest.json
