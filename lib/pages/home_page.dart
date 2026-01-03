@@ -56,10 +56,11 @@ class _HomePageState extends State<HomePage> {
           children: [
             // Fondo con efectos visuales mejorados
             ..._buildBackgroundEffects(),
-            
+
             // Contenido principal con scroll
             Padding(
-              padding: const EdgeInsets.only(top: 80), // Espacio para el navbar fijo
+              padding:
+                  const EdgeInsets.only(top: 80), // Espacio para el navbar fijo
               child: SingleChildScrollView(
                 controller: _scrollController,
                 child: Column(
@@ -79,7 +80,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            
+
             // Navbar fijo en la parte superior
             Positioned(
               top: 0,
@@ -124,7 +125,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-      
+
       // Cuadro grande superior izquierda
       Positioned(
         top: -40,
@@ -136,7 +137,7 @@ class _HomePageState extends State<HomePage> {
           rotation: 15,
         ),
       ),
-      
+
       // Cuadro mediano superior derecha
       Positioned(
         top: 80,
@@ -148,7 +149,7 @@ class _HomePageState extends State<HomePage> {
           rotation: -20,
         ),
       ),
-      
+
       // Cuadro pequeño centro izquierda
       Positioned(
         top: 300,
@@ -160,7 +161,7 @@ class _HomePageState extends State<HomePage> {
           rotation: 25,
         ),
       ),
-      
+
       // Cuadro mediano centro derecha
       Positioned(
         top: 400,
@@ -172,7 +173,7 @@ class _HomePageState extends State<HomePage> {
           rotation: -15,
         ),
       ),
-      
+
       // Cuadro grande inferior derecha
       Positioned(
         bottom: -30,
@@ -184,7 +185,7 @@ class _HomePageState extends State<HomePage> {
           rotation: 18,
         ),
       ),
-      
+
       // Cuadro mediano inferior izquierda
       Positioned(
         bottom: 180,
@@ -196,7 +197,7 @@ class _HomePageState extends State<HomePage> {
           rotation: -12,
         ),
       ),
-      
+
       // Cuadro pequeño inferior centro
       Positioned(
         bottom: 320,
@@ -208,7 +209,7 @@ class _HomePageState extends State<HomePage> {
           rotation: 30,
         ),
       ),
-      
+
       // Líneas decorativas sutiles
       Positioned(
         top: 150,
@@ -223,16 +224,22 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildNavBar(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isMobile = screenWidth < 768;
+
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+      padding: EdgeInsets.symmetric(
+        horizontal: isMobile ? 16 : 40,
+        vertical: isMobile ? 12 : 20,
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
             children: [
               Container(
-                width: 45,
-                height: 45,
+                width: isMobile ? 38 : 45,
+                height: isMobile ? 38 : 45,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
                   gradient: const LinearGradient(
@@ -246,22 +253,22 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ],
                 ),
-                child: const Center(
+                child: Center(
                   child: Text(
                     'LG',
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 18,
+                      fontSize: isMobile ? 14 : 18,
                       fontWeight: FontWeight.w900,
                     ),
                   ),
                 ),
               ),
               const SizedBox(width: 12),
-              const Text(
+              Text(
                 'leodan.dev',
                 style: TextStyle(
-                  fontSize: 18,
+                  fontSize: isMobile ? 14 : 18,
                   fontWeight: FontWeight.w800,
                   color: Colors.white,
                   letterSpacing: 0.5,
@@ -269,17 +276,25 @@ class _HomePageState extends State<HomePage> {
               ),
             ],
           ),
-          
+
           // Menú de navegación
           Row(
             children: [
-              _buildNavItem('Inicio', Icons.home_rounded, () => _scrollToSection(_inicioKey)),
-              const SizedBox(width: 8),
-              _buildNavItem('Sobre mí', Icons.person_rounded, () => _scrollToSection(_sobreMiKey)),
-              const SizedBox(width: 8),
-              _buildNavItem('Proyectos', Icons.work_rounded, () => _scrollToSection(_proyectosKey)),
-              const SizedBox(width: 8),
-              _buildNavItem('Contacto', Icons.mail_rounded, () => _scrollToSection(_contactoKey)),
+              _buildNavItem('Inicio', Icons.home_rounded,
+                  () => _scrollToSection(_inicioKey),
+                  isMobile: isMobile),
+              SizedBox(width: isMobile ? 4 : 8),
+              _buildNavItem('Sobre mí', Icons.person_rounded,
+                  () => _scrollToSection(_sobreMiKey),
+                  isMobile: isMobile),
+              SizedBox(width: isMobile ? 4 : 8),
+              _buildNavItem('Proyectos', Icons.work_rounded,
+                  () => _scrollToSection(_proyectosKey),
+                  isMobile: isMobile),
+              SizedBox(width: isMobile ? 4 : 8),
+              _buildNavItem('Contacto', Icons.mail_rounded,
+                  () => _scrollToSection(_contactoKey),
+                  isMobile: isMobile),
             ],
           ),
         ],
@@ -287,177 +302,351 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _buildNavItem(String label, IconData icon, VoidCallback onTap) {
-    return _HoverNavItem(label: label, icon: icon, onTap: onTap);
+  Widget _buildNavItem(String label, IconData icon, VoidCallback onTap,
+      {bool isMobile = false}) {
+    return _HoverNavItem(
+        label: label, icon: icon, onTap: onTap, isMobile: isMobile);
   }
 
   Widget _buildHeroSection(BuildContext context, {Key? key}) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isMobile = screenWidth < 768;
+    final isTablet = screenWidth >= 768 && screenWidth < 1024;
+
     return Container(
       key: key,
       constraints: const BoxConstraints(maxWidth: 1200),
-      padding: const EdgeInsets.symmetric(horizontal: 40),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          // Avatar
-          Container(
-            width: 180,
-            height: 180,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              boxShadow: [
-                BoxShadow(
-                  color: const Color(0xFF42A5F5).withValues(alpha: 0.2),
-                  blurRadius: 30,
-                  offset: const Offset(0, 10),
-                ),
-              ],
-              image: const DecorationImage(
-                image: AssetImage('assets/img/profile2.jpg'),
-                fit: BoxFit.cover,
-                alignment: Alignment(0, 0.15),
-              ),
-            ),
-          ),
-          const SizedBox(width: 60),
-          
-          // Información
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'Leodan García',
-                  style: TextStyle(
-                    fontSize: 52,
-                    fontWeight: FontWeight.w900,
-                    color: Colors.white,
-                    height: 1.1,
-                    letterSpacing: -1,
-                  ),
-                ),
-                const SizedBox(height: 16),
-                
-                // Texto animado
-                SizedBox(
-                  height: 60,
-                  child: DefaultTextStyle(
-                    style: const TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.w700,
-                      height: 1.3,
-                    ),
-                    child: AnimatedTextKit(
-                      repeatForever: true,
-                      animatedTexts: [
-                        TypewriterAnimatedText(
-                          'Desarrollador Frontend Mobile',
-                          speed: const Duration(milliseconds: 80),
-                          textStyle: const TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.w700,
-                            color: Color(0xFF42A5F5),
-                          ),
-                        ),
-                        TypewriterAnimatedText(
-                          'Especializado en Dart & Flutter',
-                          speed: const Duration(milliseconds: 80),
-                          textStyle: const TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.w700,
-                            color: Color(0xFF00D2B8),
-                          ),
-                        ),
-                        TypewriterAnimatedText(
-                          'Automatización con Python & n8n',
-                          speed: const Duration(milliseconds: 80),
-                          textStyle: const TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.w700,
-                            color: Color(0xFFFF6D5A),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                
-                const SizedBox(height: 24),
-                Text(
-                  'Soy un desarrollador junior de aplicaciones móviles especializado en frontend. '
-                  'Trabajo con Dart y Flutter, conozco Python para automatización, n8n, Git y Linux. '
-                  'Me encanta aprender nuevas tecnologías y mejorar mis habilidades constantemente.',
-                  style: TextStyle(
-                    fontSize: 17,
-                    color: Colors.white.withValues(alpha: 0.7),
-                    height: 1.6,
-                  ),
-                ),
-                
-                const SizedBox(height: 32),
-                
-                // Badges
-                Wrap(
-                  spacing: 12,
-                  runSpacing: 12,
-                  children: [
-                    _buildBadge('UTEG · 6to semestre · Ingeniería de Software'),
-                    _buildBadge('Ecuador 🇪🇨'),
-                  ],
-                ),
-                
-                const SizedBox(height: 32),
-                
-                // Iconos sociales
-                Row(
-                  children: [
-                    _buildSocialIcon(
-                      iconPath: 'assets/icons/github.svg',
-                      color: const Color(0xFF24292e),
-                      url: 'https://github.com/leodan87',
-                      tooltip: 'GitHub - leodan87',
-                    ),
-                    const SizedBox(width: 12),
-                    _buildSocialIcon(
-                      iconPath: 'assets/icons/instagram.svg',
-                      color: const Color(0xFFE4405F),
-                      url: 'https://instagram.com/leo_dangg',
-                      tooltip: 'Instagram - @leo_dangg',
-                    ),
-                    const SizedBox(width: 12),
-                    _buildSocialIcon(
-                      iconPath: 'assets/icons/twitter.svg',
-                      color: const Color(0xFF14171A),
-                      url: 'https://x.com/LeodanGarcia4',
-                      tooltip: 'X - @LeodanGarcia4',
-                    ),
-                    const SizedBox(width: 12),
-                    _buildSocialIcon(
-                      iconPath: 'assets/icons/discord.svg',
-                      color: const Color(0xFF5865F2),
-                      url: 'https://discord.com/users/leo_garcia',
-                      tooltip: 'Discord - leo_garcia',
-                    ),
-                    const SizedBox(width: 12),
-                    _buildSocialIcon(
-                      iconPath: 'assets/icons/email.svg',
-                      color: const Color(0xFF42A5F5),
-                      url: 'mailto:leogarcia@leodan.dev',
-                      tooltip: 'Email - leogarcia@leodan.dev',
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
+      padding: EdgeInsets.symmetric(horizontal: isMobile ? 20 : 40),
+      child: isMobile
+          ? _buildHeroMobile(context)
+          : _buildHeroDesktop(context, isTablet: isTablet),
     );
   }
 
-  Widget _buildBadge(String text) {
+  Widget _buildHeroMobile(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        // Avatar
+        Container(
+          width: 140,
+          height: 140,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            boxShadow: [
+              BoxShadow(
+                color: const Color(0xFF42A5F5).withValues(alpha: 0.2),
+                blurRadius: 30,
+                offset: const Offset(0, 10),
+              ),
+            ],
+            image: const DecorationImage(
+              image: AssetImage('assets/img/profile2.jpg'),
+              fit: BoxFit.cover,
+              alignment: Alignment(0, 0.15),
+            ),
+          ),
+        ),
+        const SizedBox(height: 24),
+
+        // Información
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Text(
+              'Leodan García',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 32,
+                fontWeight: FontWeight.w900,
+                color: Colors.white,
+                height: 1.1,
+                letterSpacing: -0.5,
+              ),
+            ),
+            const SizedBox(height: 12),
+
+            // Texto animado
+            SizedBox(
+              height: 50,
+              child: DefaultTextStyle(
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
+                  height: 1.3,
+                ),
+                child: AnimatedTextKit(
+                  repeatForever: true,
+                  animatedTexts: [
+                    TypewriterAnimatedText(
+                      'Desarrollador Frontend Mobile',
+                      speed: const Duration(milliseconds: 80),
+                      textStyle: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w700,
+                        color: Color(0xFF42A5F5),
+                      ),
+                    ),
+                    TypewriterAnimatedText(
+                      'Especializado en Dart & Flutter',
+                      speed: const Duration(milliseconds: 80),
+                      textStyle: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w700,
+                        color: Color(0xFF00D2B8),
+                      ),
+                    ),
+                    TypewriterAnimatedText(
+                      'Automatización con Python & n8n',
+                      speed: const Duration(milliseconds: 80),
+                      textStyle: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w700,
+                        color: Color(0xFFFF6D5A),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+
+            const SizedBox(height: 20),
+            Text(
+              'Soy un desarrollador junior de aplicaciones móviles especializado en frontend. '
+              'Trabajo con Dart y Flutter, conozco Python para automatización, n8n, Git y Linux. '
+              'Me encanta aprender nuevas tecnologías y mejorar mis habilidades constantemente.',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 14,
+                color: Colors.white.withValues(alpha: 0.7),
+                height: 1.6,
+              ),
+            ),
+
+            const SizedBox(height: 24),
+
+            // Badges
+            Wrap(
+              alignment: WrapAlignment.center,
+              spacing: 8,
+              runSpacing: 8,
+              children: [
+                _buildBadge('UTEG · 6to semestre', isMobile: true),
+                _buildBadge('Ecuador 🇪🇨', isMobile: true),
+              ],
+            ),
+
+            const SizedBox(height: 24),
+
+            // Iconos sociales
+            Wrap(
+              alignment: WrapAlignment.center,
+              spacing: 10,
+              runSpacing: 10,
+              children: [
+                _buildSocialIcon(
+                  iconPath: 'assets/icons/github.svg',
+                  color: const Color(0xFF24292e),
+                  url: 'https://github.com/leodan87',
+                  tooltip: 'GitHub - leodan87',
+                ),
+                _buildSocialIcon(
+                  iconPath: 'assets/icons/instagram.svg',
+                  color: const Color(0xFFE4405F),
+                  url: 'https://instagram.com/leo_dangg',
+                  tooltip: 'Instagram - @leo_dangg',
+                ),
+                _buildSocialIcon(
+                  iconPath: 'assets/icons/twitter.svg',
+                  color: const Color(0xFF14171A),
+                  url: 'https://x.com/LeodanGarcia4',
+                  tooltip: 'X - @LeodanGarcia4',
+                ),
+                _buildSocialIcon(
+                  iconPath: 'assets/icons/discord.svg',
+                  color: const Color(0xFF5865F2),
+                  url: 'https://discord.com/users/leo_garcia',
+                  tooltip: 'Discord - leo_garcia',
+                ),
+                _buildSocialIcon(
+                  iconPath: 'assets/icons/email.svg',
+                  color: const Color(0xFF42A5F5),
+                  url: 'mailto:leogarcia@leodan.dev',
+                  tooltip: 'Email - leogarcia@leodan.dev',
+                ),
+              ],
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildHeroDesktop(BuildContext context, {bool isTablet = false}) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        // Avatar
+        Container(
+          width: isTablet ? 150 : 180,
+          height: isTablet ? 150 : 180,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            boxShadow: [
+              BoxShadow(
+                color: const Color(0xFF42A5F5).withValues(alpha: 0.2),
+                blurRadius: 30,
+                offset: const Offset(0, 10),
+              ),
+            ],
+            image: const DecorationImage(
+              image: AssetImage('assets/img/profile2.jpg'),
+              fit: BoxFit.cover,
+              alignment: Alignment(0, 0.15),
+            ),
+          ),
+        ),
+        SizedBox(width: isTablet ? 40 : 60),
+
+        // Información
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Leodan García',
+                style: TextStyle(
+                  fontSize: isTablet ? 42 : 52,
+                  fontWeight: FontWeight.w900,
+                  color: Colors.white,
+                  height: 1.1,
+                  letterSpacing: -1,
+                ),
+              ),
+              const SizedBox(height: 16),
+
+              // Texto animado
+              SizedBox(
+                height: 60,
+                child: DefaultTextStyle(
+                  style: TextStyle(
+                    fontSize: isTablet ? 20 : 24,
+                    fontWeight: FontWeight.w700,
+                    height: 1.3,
+                  ),
+                  child: AnimatedTextKit(
+                    repeatForever: true,
+                    animatedTexts: [
+                      TypewriterAnimatedText(
+                        'Desarrollador Frontend Mobile',
+                        speed: const Duration(milliseconds: 80),
+                        textStyle: TextStyle(
+                          fontSize: isTablet ? 20 : 24,
+                          fontWeight: FontWeight.w700,
+                          color: const Color(0xFF42A5F5),
+                        ),
+                      ),
+                      TypewriterAnimatedText(
+                        'Especializado en Dart & Flutter',
+                        speed: const Duration(milliseconds: 80),
+                        textStyle: TextStyle(
+                          fontSize: isTablet ? 20 : 24,
+                          fontWeight: FontWeight.w700,
+                          color: const Color(0xFF00D2B8),
+                        ),
+                      ),
+                      TypewriterAnimatedText(
+                        'Automatización con Python & n8n',
+                        speed: const Duration(milliseconds: 80),
+                        textStyle: TextStyle(
+                          fontSize: isTablet ? 20 : 24,
+                          fontWeight: FontWeight.w700,
+                          color: const Color(0xFFFF6D5A),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 24),
+              Text(
+                'Soy un desarrollador junior de aplicaciones móviles especializado en frontend. '
+                'Trabajo con Dart y Flutter, conozco Python para automatización, n8n, Git y Linux. '
+                'Me encanta aprender nuevas tecnologías y mejorar mis habilidades constantemente.',
+                style: TextStyle(
+                  fontSize: isTablet ? 15 : 17,
+                  color: Colors.white.withValues(alpha: 0.7),
+                  height: 1.6,
+                ),
+              ),
+
+              const SizedBox(height: 32),
+
+              // Badges
+              Wrap(
+                spacing: 12,
+                runSpacing: 12,
+                children: [
+                  _buildBadge('UTEG · 6to semestre · Ingeniería de Software'),
+                  _buildBadge('Ecuador 🇪🇨'),
+                ],
+              ),
+
+              const SizedBox(height: 32),
+
+              // Iconos sociales
+              Row(
+                children: [
+                  _buildSocialIcon(
+                    iconPath: 'assets/icons/github.svg',
+                    color: const Color(0xFF24292e),
+                    url: 'https://github.com/leodan87',
+                    tooltip: 'GitHub - leodan87',
+                  ),
+                  const SizedBox(width: 12),
+                  _buildSocialIcon(
+                    iconPath: 'assets/icons/instagram.svg',
+                    color: const Color(0xFFE4405F),
+                    url: 'https://instagram.com/leo_dangg',
+                    tooltip: 'Instagram - @leo_dangg',
+                  ),
+                  const SizedBox(width: 12),
+                  _buildSocialIcon(
+                    iconPath: 'assets/icons/twitter.svg',
+                    color: const Color(0xFF14171A),
+                    url: 'https://x.com/LeodanGarcia4',
+                    tooltip: 'X - @LeodanGarcia4',
+                  ),
+                  const SizedBox(width: 12),
+                  _buildSocialIcon(
+                    iconPath: 'assets/icons/discord.svg',
+                    color: const Color(0xFF5865F2),
+                    url: 'https://discord.com/users/leo_garcia',
+                    tooltip: 'Discord - leo_garcia',
+                  ),
+                  const SizedBox(width: 12),
+                  _buildSocialIcon(
+                    iconPath: 'assets/icons/email.svg',
+                    color: const Color(0xFF42A5F5),
+                    url: 'mailto:leogarcia@leodan.dev',
+                    tooltip: 'Email - leogarcia@leodan.dev',
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildBadge(String text, {bool isMobile = false}) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+      padding: EdgeInsets.symmetric(
+        horizontal: isMobile ? 12 : 16,
+        vertical: isMobile ? 8 : 10,
+      ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(999),
         border: Border.all(
@@ -467,7 +656,7 @@ class _HomePageState extends State<HomePage> {
       child: Text(
         text,
         style: TextStyle(
-          fontSize: 14,
+          fontSize: isMobile ? 12 : 14,
           fontWeight: FontWeight.w600,
           color: Colors.white.withValues(alpha: 0.8),
         ),
@@ -491,31 +680,40 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildSkillsSection(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isMobile = screenWidth < 768;
+
     return Container(
       constraints: const BoxConstraints(maxWidth: 1200),
-      padding: const EdgeInsets.symmetric(horizontal: 40),
+      padding: EdgeInsets.symmetric(horizontal: isMobile ? 20 : 40),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'Tecnologías',
             style: TextStyle(
-              fontSize: 36,
+              fontSize: isMobile ? 28 : 36,
               fontWeight: FontWeight.w900,
               color: Colors.white,
             ),
           ),
           const SizedBox(height: 32),
           Wrap(
-            spacing: 16,
-            runSpacing: 16,
+            spacing: isMobile ? 12 : 16,
+            runSpacing: isMobile ? 12 : 16,
             children: [
-              _buildSkillCard('Flutter', 'assets/icons/flutter.svg', const Color(0xFF42A5F5)),
-              _buildSkillCard('Dart', 'assets/icons/dart.svg', const Color(0xFF00D2B8)),
-              _buildSkillCard('Python', 'assets/icons/python.svg', const Color(0xFFFFD43B)),
-              _buildSkillCard('n8n', 'assets/icons/n8n.svg', const Color(0xFFFF6D5A)),
-              _buildSkillCard('Git', 'assets/icons/git.svg', const Color(0xFFF05032)),
-              _buildSkillCard('Linux', 'assets/icons/terminal.svg', const Color(0xFFFCC624)),
+              _buildSkillCard('Flutter', 'assets/icons/flutter.svg',
+                  const Color(0xFF42A5F5)),
+              _buildSkillCard(
+                  'Dart', 'assets/icons/dart.svg', const Color(0xFF00D2B8)),
+              _buildSkillCard(
+                  'Python', 'assets/icons/python.svg', const Color(0xFFFFD43B)),
+              _buildSkillCard(
+                  'n8n', 'assets/icons/n8n.svg', const Color(0xFFFF6D5A)),
+              _buildSkillCard(
+                  'Git', 'assets/icons/git.svg', const Color(0xFFF05032)),
+              _buildSkillCard('Linux', 'assets/icons/terminal.svg',
+                  const Color(0xFFFCC624)),
             ],
           ),
         ],
@@ -528,45 +726,51 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildProjectsHighlight(BuildContext context, {Key? key}) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isMobile = screenWidth < 768;
+
     return Container(
       key: key,
       constraints: const BoxConstraints(maxWidth: 1200),
-      padding: const EdgeInsets.symmetric(horizontal: 40),
+      padding: EdgeInsets.symmetric(horizontal: isMobile ? 20 : 40),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'Proyectos Destacados',
             style: TextStyle(
-              fontSize: 36,
+              fontSize: isMobile ? 28 : 36,
               fontWeight: FontWeight.w900,
               color: Colors.white,
             ),
           ),
           const SizedBox(height: 32),
-          
+
           // LockPass
           _buildProjectCard(
             title: 'LockPass',
-            description: 'App para guardar cuentas y contraseñas de forma segura, enfocada en simplicidad y orden.',
+            description:
+                'App para guardar cuentas y contraseñas de forma segura, enfocada en simplicidad y orden.',
             tech: ['Flutter', 'Dart'],
             color: const Color(0xFF7C5CFF),
           ),
           const SizedBox(height: 20),
-          
+
           // JaraSecurity
           _buildProjectCard(
             title: 'JaraSecurity',
-            description: 'App para empresa de seguridad privada con sistema de reportes, control y módulos de supervisión.',
+            description:
+                'App para empresa de seguridad privada con sistema de reportes, control y módulos de supervisión.',
             tech: ['Flutter', 'Dart'],
             color: const Color(0xFFC9A961),
           ),
           const SizedBox(height: 20),
-          
+
           // AlertaEstudiantil
           _buildProjectCard(
             title: 'AlertaEstudiantil 🥈',
-            description: 'Hackathon UTEG - 2do lugar. Detecta estudiantes en riesgo académico y envía alertas automáticas con recomendaciones generadas por IA.',
+            description:
+                'Hackathon UTEG - 2do lugar. Detecta estudiantes en riesgo académico y envía alertas automáticas con recomendaciones generadas por IA.',
             tech: ['Flutter', 'n8n', 'Cloud Run', 'AI'],
             color: const Color(0xFF42A5F5),
             featured: true,
@@ -593,17 +797,20 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildContactSection(BuildContext context, {Key? key}) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isMobile = screenWidth < 768;
+
     return Container(
       key: key,
       constraints: const BoxConstraints(maxWidth: 1200),
-      padding: const EdgeInsets.symmetric(horizontal: 40),
+      padding: EdgeInsets.symmetric(horizontal: isMobile ? 20 : 40),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'Contacto',
             style: TextStyle(
-              fontSize: 36,
+              fontSize: isMobile ? 28 : 36,
               fontWeight: FontWeight.w900,
               color: Colors.white,
             ),
@@ -612,15 +819,14 @@ class _HomePageState extends State<HomePage> {
           Text(
             'Disponible para proyectos, colaboraciones y oportunidades',
             style: TextStyle(
-              fontSize: 17,
+              fontSize: isMobile ? 14 : 17,
               color: Colors.white.withValues(alpha: 0.6),
             ),
           ),
           const SizedBox(height: 32),
-          
           Wrap(
-            spacing: 20,
-            runSpacing: 20,
+            spacing: isMobile ? 12 : 20,
+            runSpacing: isMobile ? 12 : 20,
             children: [
               _buildContactCard(
                 icon: Icons.email,
@@ -876,6 +1082,9 @@ class _HoverContactCardState extends State<_HoverContactCard> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isMobile = screenWidth < 768;
+
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       onEnter: (_) => setState(() => _isHovering = true),
@@ -885,8 +1094,11 @@ class _HoverContactCardState extends State<_HoverContactCard> {
         borderRadius: BorderRadius.circular(18),
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
-          width: 350,
-          padding: const EdgeInsets.all(24),
+          constraints: BoxConstraints(
+            maxWidth: isMobile ? screenWidth - 40 : 350,
+            minWidth: isMobile ? screenWidth - 40 : 280,
+          ),
+          padding: EdgeInsets.all(isMobile ? 16 : 24),
           transform: _isHovering
               ? (Matrix4.identity()..translate(0.0, -6.0))
               : Matrix4.identity(),
@@ -1027,11 +1239,13 @@ class _HoverNavItem extends StatefulWidget {
   final String label;
   final IconData icon;
   final VoidCallback onTap;
+  final bool isMobile;
 
   const _HoverNavItem({
     required this.label,
     required this.icon,
     required this.onTap,
+    this.isMobile = false,
   });
 
   @override
@@ -1043,36 +1257,44 @@ class _HoverNavItemState extends State<_HoverNavItem> {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: widget.onTap,
-      onHover: (hovering) => setState(() => _isHovering = hovering),
-      hoverColor: Colors.transparent,
-      splashColor: Colors.transparent,
-      highlightColor: Colors.transparent,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(
-              widget.icon,
-              color: _isHovering
-                  ? const Color(0xFF42A5F5)
-                  : Colors.white.withValues(alpha: 0.7),
-              size: 18,
-            ),
-            const SizedBox(width: 6),
-            Text(
-              widget.label,
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w600,
+    return Tooltip(
+      message: widget.isMobile ? widget.label : '',
+      child: InkWell(
+        onTap: widget.onTap,
+        onHover: (hovering) => setState(() => _isHovering = hovering),
+        hoverColor: Colors.transparent,
+        splashColor: Colors.transparent,
+        highlightColor: Colors.transparent,
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: widget.isMobile ? 8 : 12,
+            vertical: 8,
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(
+                widget.icon,
                 color: _isHovering
                     ? const Color(0xFF42A5F5)
                     : Colors.white.withValues(alpha: 0.7),
+                size: widget.isMobile ? 20 : 18,
               ),
-            ),
-          ],
+              if (!widget.isMobile) ...[
+                const SizedBox(width: 6),
+                Text(
+                  widget.label,
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: _isHovering
+                        ? const Color(0xFF42A5F5)
+                        : Colors.white.withValues(alpha: 0.7),
+                  ),
+                ),
+              ],
+            ],
+          ),
         ),
       ),
     );
