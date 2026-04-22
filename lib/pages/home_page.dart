@@ -1,4 +1,8 @@
+import 'dart:math' as math;
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -16,12 +20,39 @@ class _HomePageState extends State<HomePage> {
   final GlobalKey _sobreMiKey = GlobalKey();
   final GlobalKey _proyectosKey = GlobalKey();
   final GlobalKey _contactoKey = GlobalKey();
+  final GlobalKey _skillsKey = GlobalKey();
   final ScrollController _scrollController = ScrollController();
+
+  int _activeSection = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(_updateActiveSection);
+  }
 
   @override
   void dispose() {
+    _scrollController.removeListener(_updateActiveSection);
     _scrollController.dispose();
     super.dispose();
+  }
+
+  void _updateActiveSection() {
+    final keys = [_inicioKey, _sobreMiKey, _proyectosKey, _contactoKey];
+    final viewportTop = MediaQuery.of(context).size.width < 768 ? 120.0 : 160.0;
+    int idx = 0;
+    for (int i = 0; i < keys.length; i++) {
+      final ctx = keys[i].currentContext;
+      if (ctx == null) continue;
+      final box = ctx.findRenderObject();
+      if (box is! RenderBox) continue;
+      final y = box.localToGlobal(Offset.zero).dy;
+      if (y <= viewportTop) idx = i;
+    }
+    if (idx != _activeSection) {
+      setState(() => _activeSection = idx);
+    }
   }
 
   void _scrollToSection(GlobalKey key) {
@@ -31,7 +62,7 @@ class _HomePageState extends State<HomePage> {
     Scrollable.ensureVisible(
       context,
       duration: const Duration(milliseconds: 500),
-      curve: Curves.easeOut,
+      curve: Curves.easeOutCubic,
     );
   }
 
@@ -70,19 +101,39 @@ class _HomePageState extends State<HomePage> {
                     SizedBox(
                         height:
                             MediaQuery.of(context).size.width < 768 ? 30 : 60),
-                    _buildHeroSection(context, key: _sobreMiKey),
+                    _FadeInUp(
+                      delay: const Duration(milliseconds: 100),
+                      child: _buildHeroSection(context, key: _sobreMiKey),
+                    ),
+                    SizedBox(
+                        height:
+                            MediaQuery.of(context).size.width < 768 ? 40 : 60),
+                    _FadeInUp(
+                      delay: const Duration(milliseconds: 350),
+                      child: _buildStatsSection(context),
+                    ),
                     SizedBox(
                         height:
                             MediaQuery.of(context).size.width < 768 ? 50 : 80),
-                    _buildSkillsSection(context),
+                    _FadeInUp(
+                      delay: const Duration(milliseconds: 500),
+                      child: _buildSkillsSection(context),
+                    ),
                     SizedBox(
                         height:
                             MediaQuery.of(context).size.width < 768 ? 50 : 80),
-                    _buildProjectsHighlight(context, key: _proyectosKey),
+                    _FadeInUp(
+                      delay: const Duration(milliseconds: 650),
+                      child: _buildProjectsHighlight(context,
+                          key: _proyectosKey),
+                    ),
                     SizedBox(
                         height:
                             MediaQuery.of(context).size.width < 768 ? 50 : 80),
-                    _buildContactSection(context, key: _contactoKey),
+                    _FadeInUp(
+                      delay: const Duration(milliseconds: 800),
+                      child: _buildContactSection(context, key: _contactoKey),
+                    ),
                     SizedBox(
                         height:
                             MediaQuery.of(context).size.width < 768 ? 40 : 60),
@@ -120,115 +171,53 @@ class _HomePageState extends State<HomePage> {
   }
 
   List<Widget> _buildBackgroundEffects() {
-    return [
-      // Gradiente de fondo más visible
+    return const [
+      // Grid sutil global
       Positioned.fill(
-        child: Container(
-          decoration: BoxDecoration(
-            gradient: RadialGradient(
-              center: Alignment.topLeft,
-              radius: 1.5,
-              colors: [
-                const Color(0xFF1a2332).withValues(alpha: 0.3),
-                Colors.transparent,
-              ],
-            ),
-          ),
+        child: IgnorePointer(
+          child: CustomPaint(painter: _SubtleGridPainter()),
         ),
       ),
 
-      // Cuadro grande superior izquierda
+      // Orbe principal azul (arriba-izquierda)
       Positioned(
-        top: -40,
-        left: 50,
-        child: _FloatingSquare(
-          size: 120,
-          color: const Color(0xFF42A5F5),
-          opacity: 0.06,
-          rotation: 15,
+        top: -180,
+        left: -120,
+        child: _AnimatedOrb(
+          size: 520,
+          color: Color(0xFF42A5F5),
+          opacity: 0.22,
+          driftX: 40,
+          driftY: 30,
+          duration: Duration(seconds: 18),
         ),
       ),
 
-      // Cuadro mediano superior derecha
+      // Orbe teal (centro-derecha)
       Positioned(
-        top: 80,
-        right: 100,
-        child: _FloatingSquare(
-          size: 90,
-          color: const Color(0xFF7C5CFF),
-          opacity: 0.05,
-          rotation: -20,
+        top: 420,
+        right: -160,
+        child: _AnimatedOrb(
+          size: 460,
+          color: Color(0xFF00D2B8),
+          opacity: 0.18,
+          driftX: -50,
+          driftY: 40,
+          duration: Duration(seconds: 22),
         ),
       ),
 
-      // Cuadro pequeño centro izquierda
+      // Orbe púrpura (inferior)
       Positioned(
-        top: 300,
-        left: 150,
-        child: _FloatingSquare(
-          size: 70,
-          color: const Color(0xFFFF6D5A),
-          opacity: 0.04,
-          rotation: 25,
-        ),
-      ),
-
-      // Cuadro mediano centro derecha
-      Positioned(
-        top: 400,
-        right: 200,
-        child: _FloatingSquare(
-          size: 100,
-          color: const Color(0xFF00D2B8),
-          opacity: 0.05,
-          rotation: -15,
-        ),
-      ),
-
-      // Cuadro grande inferior derecha
-      Positioned(
-        bottom: -30,
-        right: 80,
-        child: _FloatingSquare(
-          size: 140,
-          color: const Color(0xFF00D2B8),
-          opacity: 0.07,
-          rotation: 18,
-        ),
-      ),
-
-      // Cuadro mediano inferior izquierda
-      Positioned(
-        bottom: 180,
-        left: 60,
-        child: _FloatingSquare(
-          size: 110,
-          color: const Color(0xFF42A5F5),
-          opacity: 0.05,
-          rotation: -12,
-        ),
-      ),
-
-      // Cuadro pequeño inferior centro
-      Positioned(
-        bottom: 320,
-        left: 300,
-        child: _FloatingSquare(
-          size: 80,
-          color: const Color(0xFF7C5CFF),
-          opacity: 0.04,
-          rotation: 30,
-        ),
-      ),
-
-      // Líneas decorativas sutiles
-      Positioned(
-        top: 150,
-        left: 0,
-        right: 0,
-        child: CustomPaint(
-          size: const Size(double.infinity, 400),
-          painter: _GridPainter(),
+        bottom: -220,
+        left: 200,
+        child: _AnimatedOrb(
+          size: 560,
+          color: Color(0xFF7C5CFF),
+          opacity: 0.16,
+          driftX: 60,
+          driftY: -30,
+          duration: Duration(seconds: 26),
         ),
       ),
     ];
@@ -312,19 +301,19 @@ class _HomePageState extends State<HomePage> {
               children: [
                 _buildNavItem('Inicio', Icons.home_rounded,
                     () => _scrollToSection(_inicioKey),
-                    isMobile: isMobile),
+                    isMobile: isMobile, isActive: _activeSection == 0),
                 SizedBox(width: isMobile ? 2 : 8),
                 _buildNavItem('Sobre mí', Icons.person_rounded,
                     () => _scrollToSection(_sobreMiKey),
-                    isMobile: isMobile),
+                    isMobile: isMobile, isActive: _activeSection == 1),
                 SizedBox(width: isMobile ? 2 : 8),
                 _buildNavItem('Proyectos', Icons.work_rounded,
                     () => _scrollToSection(_proyectosKey),
-                    isMobile: isMobile),
+                    isMobile: isMobile, isActive: _activeSection == 2),
                 SizedBox(width: isMobile ? 2 : 8),
                 _buildNavItem('Contacto', Icons.mail_rounded,
                     () => _scrollToSection(_contactoKey),
-                    isMobile: isMobile),
+                    isMobile: isMobile, isActive: _activeSection == 3),
               ],
             ),
           ),
@@ -334,9 +323,14 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildNavItem(String label, IconData icon, VoidCallback onTap,
-      {bool isMobile = false}) {
+      {bool isMobile = false, bool isActive = false}) {
     return _HoverNavItem(
-        label: label, icon: icon, onTap: onTap, isMobile: isMobile);
+      label: label,
+      icon: icon,
+      onTap: onTap,
+      isMobile: isMobile,
+      isActive: isActive,
+    );
   }
 
   Widget _buildHeroSection(BuildContext context, {Key? key}) {
@@ -361,37 +355,26 @@ class _HomePageState extends State<HomePage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        // Avatar con borde elegante
-        Container(
-          padding: const EdgeInsets.all(4),
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            gradient: const LinearGradient(
-              colors: [Color(0xFF42A5F5), Color(0xFF00D2B8), Color(0xFF7C5CFF)],
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: const Color(0xFF42A5F5).withValues(alpha: 0.3),
-                blurRadius: 25,
-                offset: const Offset(0, 8),
-              ),
-            ],
-          ),
-          child: Container(
-            width: isVerySmall ? 110 : 130,
-            height: isVerySmall ? 110 : 130,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              border: Border.all(color: const Color(0xFF0a0e1a), width: 3),
-              image: const DecorationImage(
-                image: AssetImage('assets/img/profile2.jpg'),
-                fit: BoxFit.cover,
-                alignment: Alignment(0, 0.15),
-              ),
-            ),
+        // Avatar con anillo rotatorio
+        _RotatingAvatarRing(
+          size: isVerySmall ? 130 : 150,
+          thickness: 3,
+          colors: const [
+            Color(0xFF42A5F5),
+            Color(0xFF00D2B8),
+            Color(0xFF7C5CFF),
+            Color(0xFFFF6D5A),
+            Color(0xFF42A5F5),
+          ],
+          child: Image.asset(
+            'assets/img/profile2.jpg',
+            fit: BoxFit.cover,
+            alignment: const Alignment(0, 0.15),
           ),
         ),
-        const SizedBox(height: 20),
+        const SizedBox(height: 18),
+        const _AvailableBadge(isMobile: true),
+        const SizedBox(height: 14),
 
         // Información
         Column(
@@ -408,15 +391,20 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             const SizedBox(height: 6),
-            Text(
-              'Leodan García',
+            _GradientText(
+              text: 'Leodan García',
               textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: isVerySmall ? 26 : 30,
-                fontWeight: FontWeight.w900,
+              colors: const [
+                Colors.white,
+                Color(0xFFBFD7F5),
+                Color(0xFFE8E4FF),
+              ],
+              style: GoogleFonts.spaceGrotesk(
+                fontSize: isVerySmall ? 30 : 36,
+                fontWeight: FontWeight.w800,
                 color: Colors.white,
-                height: 1.1,
-                letterSpacing: -0.5,
+                height: 1.05,
+                letterSpacing: -0.8,
               ),
             ),
             const SizedBox(height: 14),
@@ -498,9 +486,32 @@ class _HomePageState extends State<HomePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                _buildBadge('UTEG · 6to', isMobile: true),
+                _buildBadge('UTEG · 7mo', isMobile: true),
                 const SizedBox(width: 8),
                 _buildBadge('Ecuador 🇪🇨', isMobile: true),
+              ],
+            ),
+
+            const SizedBox(height: 20),
+
+            // CTAs principales
+            Wrap(
+              alignment: WrapAlignment.center,
+              spacing: 10,
+              runSpacing: 10,
+              children: [
+                _PrimaryCTA(
+                  label: 'Contáctame',
+                  icon: Icons.arrow_forward_rounded,
+                  isMobile: true,
+                  onTap: () => _scrollToSection(_contactoKey),
+                ),
+                _SecondaryCTA(
+                  label: 'Proyectos',
+                  icon: Icons.folder_rounded,
+                  isMobile: true,
+                  onTap: () => _scrollToSection(_proyectosKey),
+                ),
               ],
             ),
 
@@ -588,24 +599,21 @@ class _HomePageState extends State<HomePage> {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        // Avatar
-        Container(
-          width: isTablet ? 150 : 180,
-          height: isTablet ? 150 : 180,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            boxShadow: [
-              BoxShadow(
-                color: const Color(0xFF42A5F5).withValues(alpha: 0.2),
-                blurRadius: 30,
-                offset: const Offset(0, 10),
-              ),
-            ],
-            image: const DecorationImage(
-              image: AssetImage('assets/img/profile2.jpg'),
-              fit: BoxFit.cover,
-              alignment: Alignment(0, 0.15),
-            ),
+        // Avatar con anillo rotatorio
+        _RotatingAvatarRing(
+          size: isTablet ? 170 : 200,
+          thickness: 3,
+          colors: const [
+            Color(0xFF42A5F5),
+            Color(0xFF00D2B8),
+            Color(0xFF7C5CFF),
+            Color(0xFFFF6D5A),
+            Color(0xFF42A5F5),
+          ],
+          child: Image.asset(
+            'assets/img/profile2.jpg',
+            fit: BoxFit.cover,
+            alignment: const Alignment(0, 0.15),
           ),
         ),
         SizedBox(width: isTablet ? 40 : 60),
@@ -615,14 +623,21 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Leodan García',
-                style: TextStyle(
-                  fontSize: isTablet ? 42 : 52,
-                  fontWeight: FontWeight.w900,
+              const _AvailableBadge(),
+              const SizedBox(height: 18),
+              _GradientText(
+                text: 'Leodan García',
+                colors: const [
+                  Colors.white,
+                  Color(0xFFBFD7F5),
+                  Color(0xFFE8E4FF),
+                ],
+                style: GoogleFonts.spaceGrotesk(
+                  fontSize: isTablet ? 48 : 60,
+                  fontWeight: FontWeight.w800,
                   color: Colors.white,
-                  height: 1.1,
-                  letterSpacing: -1,
+                  height: 1.0,
+                  letterSpacing: -1.5,
                 ),
               ),
               const SizedBox(height: 16),
@@ -690,12 +705,32 @@ class _HomePageState extends State<HomePage> {
                 spacing: 12,
                 runSpacing: 12,
                 children: [
-                  _buildBadge('UTEG · 6to semestre · Ingeniería de Software'),
+                  _buildBadge('UTEG · 7mo semestre · Ingeniería de Software'),
                   _buildBadge('Ecuador 🇪🇨'),
                 ],
               ),
 
-              const SizedBox(height: 32),
+              const SizedBox(height: 28),
+
+              // CTAs principales
+              Wrap(
+                spacing: 12,
+                runSpacing: 12,
+                children: [
+                  _PrimaryCTA(
+                    label: 'Contáctame',
+                    icon: Icons.arrow_forward_rounded,
+                    onTap: () => _scrollToSection(_contactoKey),
+                  ),
+                  _SecondaryCTA(
+                    label: 'Ver proyectos',
+                    icon: Icons.folder_rounded,
+                    onTap: () => _scrollToSection(_proyectosKey),
+                  ),
+                ],
+              ),
+
+              const SizedBox(height: 28),
 
               // Iconos sociales
               Row(
@@ -743,6 +778,72 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  Widget _buildStatsSection(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isMobile = screenWidth < 768;
+
+    final stats = [
+      _StatCard(
+        value: 4,
+        suffix: '+',
+        label: 'PROYECTOS',
+        icon: Icons.rocket_launch_rounded,
+        logoAsset: 'assets/icons/flutter.svg',
+        color: const Color(0xFF42A5F5),
+        isMobile: isMobile,
+        onTap: () => _scrollToSection(_proyectosKey),
+      ),
+      _StatCard(
+        value: 6,
+        suffix: '+',
+        label: 'TECNOLOGÍAS',
+        icon: Icons.layers_rounded,
+        logoAsset: 'assets/icons/dart.svg',
+        color: const Color(0xFF00D2B8),
+        isMobile: isMobile,
+        onTap: () => _scrollToSection(_skillsKey),
+      ),
+      _StatCard(
+        value: 1,
+        suffix: '🏆',
+        label: 'HACKATHON',
+        icon: Icons.emoji_events_rounded,
+        logoEmoji: '🥈',
+        color: const Color(0xFFFFD43B),
+        isMobile: isMobile,
+        onTap: () => _scrollToSection(_proyectosKey),
+      ),
+      _StatCard(
+        value: 7,
+        suffix: 'º sem',
+        label: 'INGENIERÍA SOFTWARE',
+        icon: Icons.school_rounded,
+        logoAsset: 'assets/img/uteg-logo.png',
+        logoBgColor: Colors.white,
+        color: const Color(0xFF7C5CFF),
+        isMobile: isMobile,
+      ),
+    ];
+
+    return Container(
+      constraints: const BoxConstraints(maxWidth: 1200),
+      padding: EdgeInsets.symmetric(horizontal: isMobile ? 16 : 40),
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          final cols = isMobile ? 2 : 4;
+          final spacing = isMobile ? 10.0 : 18.0;
+          final width =
+              (constraints.maxWidth - spacing * (cols - 1)) / cols;
+          return Wrap(
+            spacing: spacing,
+            runSpacing: spacing,
+            children: stats.map((s) => SizedBox(width: width, child: s)).toList(),
+          );
+        },
+      ),
+    );
+  }
+
   Widget _buildBadge(String text, {bool isMobile = false}) {
     return Container(
       padding: EdgeInsets.symmetric(
@@ -786,30 +887,22 @@ class _HomePageState extends State<HomePage> {
     final isMobile = screenWidth < 768;
 
     return Container(
+      key: _skillsKey,
       constraints: const BoxConstraints(maxWidth: 1200),
       padding: EdgeInsets.symmetric(horizontal: isMobile ? 16 : 40),
       child: Column(
         crossAxisAlignment:
             isMobile ? CrossAxisAlignment.center : CrossAxisAlignment.start,
         children: [
-          Text(
-            'Tecnologías',
-            style: TextStyle(
-              fontSize: isMobile ? 24 : 36,
-              fontWeight: FontWeight.w900,
-              color: Colors.white,
-            ),
+          _SectionHeader(
+            number: '01',
+            eyebrow: 'Stack',
+            title: 'Tecnologías',
+            subtitle: 'Herramientas con las que construyo día a día',
+            accent: const Color(0xFF42A5F5),
+            isMobile: isMobile,
           ),
-          const SizedBox(height: 8),
-          if (isMobile)
-            Text(
-              'Stack de desarrollo',
-              style: TextStyle(
-                fontSize: 13,
-                color: Colors.white.withValues(alpha: 0.5),
-              ),
-            ),
-          SizedBox(height: isMobile ? 20 : 32),
+          SizedBox(height: isMobile ? 24 : 40),
           isMobile
               ? _buildSkillsGridMobile()
               : Wrap(
@@ -933,83 +1026,107 @@ class _HomePageState extends State<HomePage> {
         crossAxisAlignment:
             isMobile ? CrossAxisAlignment.center : CrossAxisAlignment.start,
         children: [
-          Text(
-            'Proyectos',
-            style: TextStyle(
-              fontSize: isMobile ? 24 : 36,
-              fontWeight: FontWeight.w900,
-              color: Colors.white,
-            ),
-          ),
-          if (isMobile) ...[
-            const SizedBox(height: 6),
-            Text(
-              'Trabajos destacados',
-              style: TextStyle(
-                fontSize: 13,
-                color: Colors.white.withValues(alpha: 0.5),
-              ),
-            ),
-          ],
-          SizedBox(height: isMobile ? 20 : 32),
-
-          // LockPass
-          _buildProjectCard(
-            title: 'LockPass',
-            description: isMobile
-                ? 'App para guardar contraseñas de forma segura y ordenada.'
-                : 'App para guardar cuentas y contraseñas de forma segura, enfocada en simplicidad y orden.',
-            tech: ['Flutter', 'Dart'],
-            color: const Color(0xFF7C5CFF),
+          _SectionHeader(
+            number: '02',
+            eyebrow: 'Portfolio',
+            title: 'Proyectos destacados',
+            subtitle:
+                'Una muestra de apps que he construido, desde hackathones hasta productos reales',
+            accent: const Color(0xFF00D2B8),
             isMobile: isMobile,
           ),
-          SizedBox(height: isMobile ? 14 : 20),
+          SizedBox(height: isMobile ? 24 : 40),
 
-          // JaraSecurity
-          _buildProjectCard(
-            title: 'JaraSecurity',
+          // Featured: AlertaEstudiantil (full-width, premiado)
+          _HoverProjectCard(
+            title: 'AlertaEstudiantil',
             description: isMobile
-                ? 'App de seguridad privada con reportes y supervisión.'
-                : 'App para empresa de seguridad privada con sistema de reportes, control y módulos de supervisión.',
-            tech: ['Flutter', 'Dart'],
-            color: const Color(0xFFC9A961),
-            isMobile: isMobile,
-          ),
-          SizedBox(height: isMobile ? 14 : 20),
-
-          // AlertaEstudiantil
-          _buildProjectCard(
-            title: 'AlertaEstudiantil 🥈',
-            description: isMobile
-                ? 'Hackathon UTEG - 2do lugar. Detecta estudiantes en riesgo con IA.'
-                : 'Hackathon UTEG - 2do lugar. Detecta estudiantes en riesgo académico y envía alertas automáticas con recomendaciones generadas por IA.',
+                ? 'Detecta estudiantes en riesgo académico y envía alertas automáticas con recomendaciones generadas por IA.'
+                : 'Sistema que detecta estudiantes en riesgo académico y envía alertas automáticas con recomendaciones personalizadas generadas por IA. Desarrollado en 36h durante el Hackathon UTEG.',
             tech: isMobile
-                ? ['Flutter', 'n8n', 'AI']
-                : ['Flutter', 'n8n', 'Cloud Run', 'AI'],
+                ? const ['Flutter', 'n8n', 'AI', 'Cloud Run']
+                : const ['Flutter', 'n8n', 'Cloud Run', 'AI', 'Dart'],
             color: const Color(0xFF42A5F5),
             featured: true,
             isMobile: isMobile,
+            icon: Icons.school_rounded,
+            logoAsset: 'assets/img/uteg-logo.png',
+            logoBgColor: Colors.white,
+            statusLabel: '2do lugar · Hackathon UTEG',
+            statusIcon: '🏆',
+            statusColor: const Color(0xFFFFD43B),
+          ),
+          SizedBox(height: isMobile ? 16 : 24),
+
+          // Grid secundario: 3 proyectos (2 cols desktop, 1 col mobile)
+          LayoutBuilder(
+            builder: (context, constraints) {
+              final cols = isMobile ? 1 : 2;
+              final spacing = isMobile ? 14.0 : 20.0;
+              final w =
+                  (constraints.maxWidth - spacing * (cols - 1)) / cols;
+              final cards = <Widget>[
+                _HoverProjectCard(
+                  title: 'Penthum',
+                  description: isMobile
+                      ? 'Mensajería anónima con mensajes efímeros y cifrado E2E.'
+                      : 'App de mensajería anónima con mensajes efímeros, cifrado E2E (AES-256), protección contra capturas y salas temporales con QR.',
+                  tech: isMobile
+                      ? const ['Flutter', 'Firebase', 'Riverpod']
+                      : const [
+                          'Flutter',
+                          'Firebase',
+                          'Riverpod',
+                          'SQLCipher',
+                          'FCM'
+                        ],
+                  color: const Color(0xFF7C5CFF),
+                  isMobile: isMobile,
+                  icon: Icons.shield_moon_rounded,
+                  logoAsset: 'assets/img/logo_penthum.png',
+                  statusLabel: 'En desarrollo',
+                  statusIcon: '🚧',
+                  statusColor: const Color(0xFFF59E0B),
+                ),
+                _HoverProjectCard(
+                  title: 'LockPass',
+                  description: isMobile
+                      ? 'Gestor de contraseñas seguro y ordenado.'
+                      : 'App para guardar cuentas y contraseñas de forma segura, enfocada en simplicidad y orden.',
+                  tech: const ['Flutter', 'Dart'],
+                  color: const Color(0xFFF97316),
+                  isMobile: isMobile,
+                  icon: Icons.lock_rounded,
+                  logoAsset: 'assets/img/logo_lockpas.png',
+                  statusLabel: 'Activo',
+                  statusIcon: '🟢',
+                  statusColor: const Color(0xFF10B981),
+                ),
+                _HoverProjectCard(
+                  title: 'JaraSecurity',
+                  description: isMobile
+                      ? 'Seguridad privada: reportes, control y supervisión.'
+                      : 'App para empresa de seguridad privada con sistema de reportes, control y módulos de supervisión.',
+                  tech: const ['Flutter', 'Dart'],
+                  color: const Color(0xFFC9A961),
+                  isMobile: isMobile,
+                  icon: Icons.security_rounded,
+                  logoAsset: 'assets/img/logo_jara.png',
+                  statusLabel: 'Producción',
+                  statusIcon: '🟢',
+                  statusColor: const Color(0xFF10B981),
+                ),
+              ];
+              return Wrap(
+                spacing: spacing,
+                runSpacing: spacing,
+                children:
+                    cards.map((c) => SizedBox(width: w, child: c)).toList(),
+              );
+            },
           ),
         ],
       ),
-    );
-  }
-
-  Widget _buildProjectCard({
-    required String title,
-    required String description,
-    required List<String> tech,
-    required Color color,
-    bool featured = false,
-    bool isMobile = false,
-  }) {
-    return _HoverProjectCard(
-      title: title,
-      description: description,
-      tech: tech,
-      color: color,
-      featured: featured,
-      isMobile: isMobile,
     );
   }
 
@@ -1025,26 +1142,17 @@ class _HomePageState extends State<HomePage> {
         crossAxisAlignment:
             isMobile ? CrossAxisAlignment.center : CrossAxisAlignment.start,
         children: [
-          Text(
-            'Contacto',
-            style: TextStyle(
-              fontSize: isMobile ? 24 : 36,
-              fontWeight: FontWeight.w900,
-              color: Colors.white,
-            ),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            isMobile
+          _SectionHeader(
+            number: '03',
+            eyebrow: 'Contacto',
+            title: 'Hablemos',
+            subtitle: isMobile
                 ? 'Disponible para proyectos'
                 : 'Disponible para proyectos, colaboraciones y oportunidades',
-            textAlign: isMobile ? TextAlign.center : TextAlign.start,
-            style: TextStyle(
-              fontSize: isMobile ? 13 : 17,
-              color: Colors.white.withValues(alpha: 0.5),
-            ),
+            accent: const Color(0xFFFF6D5A),
+            isMobile: isMobile,
           ),
-          SizedBox(height: isMobile ? 20 : 32),
+          SizedBox(height: isMobile ? 24 : 40),
           isMobile
               ? Column(
                   children: [
@@ -1503,22 +1611,23 @@ class _HoverContactCardState extends State<_HoverContactCard> {
   }
 }
 
-// Custom painter para efectos de fondo
-class _GridPainter extends CustomPainter {
+// Grid sutil de fondo
+class _SubtleGridPainter extends CustomPainter {
+  const _SubtleGridPainter();
+
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = Colors.white.withValues(alpha: 0.02)
+      ..color = Colors.white.withValues(alpha: 0.018)
       ..strokeWidth = 1.0
       ..style = PaintingStyle.stroke;
 
-    // Líneas diagonales decorativas
-    for (int i = 0; i < 8; i++) {
-      final startX = i * (size.width / 8);
-      final path = Path();
-      path.moveTo(startX, 0);
-      path.lineTo(startX + 100, size.height);
-      canvas.drawPath(path, paint);
+    const spacing = 80.0;
+    for (double x = 0; x < size.width; x += spacing) {
+      canvas.drawLine(Offset(x, 0), Offset(x, size.height), paint);
+    }
+    for (double y = 0; y < size.height; y += spacing) {
+      canvas.drawLine(Offset(0, y), Offset(size.width, y), paint);
     }
   }
 
@@ -1526,44 +1635,76 @@ class _GridPainter extends CustomPainter {
   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
 
-// Widget de cuadro flotante
-class _FloatingSquare extends StatelessWidget {
+// Orbe con blur radial y drift muy lento
+class _AnimatedOrb extends StatefulWidget {
   final double size;
   final Color color;
   final double opacity;
-  final double rotation;
+  final double driftX;
+  final double driftY;
+  final Duration duration;
 
-  const _FloatingSquare({
+  const _AnimatedOrb({
     required this.size,
     required this.color,
     required this.opacity,
-    required this.rotation,
+    required this.driftX,
+    required this.driftY,
+    required this.duration,
   });
 
   @override
+  State<_AnimatedOrb> createState() => _AnimatedOrbState();
+}
+
+class _AnimatedOrbState extends State<_AnimatedOrb>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: widget.duration,
+    )..repeat(reverse: true);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Transform.rotate(
-      angle: rotation * 3.14159 / 180, // Convertir a radianes
-      child: Container(
-        width: size,
-        height: size,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(size * 0.15),
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              color.withValues(alpha: opacity * 1.3),
-              color.withValues(alpha: opacity * 0.7),
-              color.withValues(alpha: opacity * 0.3),
-            ],
+    return AnimatedBuilder(
+      animation: _controller,
+      builder: (context, _) {
+        final t = Curves.easeInOutSine.transform(_controller.value);
+        final dx = (t - 0.5) * 2 * widget.driftX;
+        final dy = (t - 0.5) * 2 * widget.driftY;
+        return Transform.translate(
+          offset: Offset(dx, dy),
+          child: IgnorePointer(
+            child: Container(
+              width: widget.size,
+              height: widget.size,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: RadialGradient(
+                  colors: [
+                    widget.color.withValues(alpha: widget.opacity),
+                    widget.color.withValues(alpha: widget.opacity * 0.4),
+                    widget.color.withValues(alpha: 0),
+                  ],
+                  stops: const [0.0, 0.55, 1.0],
+                ),
+              ),
+            ),
           ),
-          border: Border.all(
-            color: color.withValues(alpha: opacity * 0.5),
-            width: 1.5,
-          ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
@@ -1574,12 +1715,14 @@ class _HoverNavItem extends StatefulWidget {
   final IconData icon;
   final VoidCallback onTap;
   final bool isMobile;
+  final bool isActive;
 
   const _HoverNavItem({
     required this.label,
     required this.icon,
     required this.onTap,
     this.isMobile = false,
+    this.isActive = false,
   });
 
   @override
@@ -1589,8 +1732,14 @@ class _HoverNavItem extends StatefulWidget {
 class _HoverNavItemState extends State<_HoverNavItem> {
   bool _isHovering = false;
 
+  static const _accent = Color(0xFF42A5F5);
+
   @override
   Widget build(BuildContext context) {
+    final highlight = _isHovering || widget.isActive;
+    final color =
+        highlight ? _accent : Colors.white.withValues(alpha: 0.7);
+
     return Tooltip(
       message: widget.isMobile ? widget.label : '',
       preferBelow: true,
@@ -1612,40 +1761,63 @@ class _HoverNavItemState extends State<_HoverNavItem> {
         highlightColor: Colors.transparent,
         borderRadius: BorderRadius.circular(10),
         child: AnimatedContainer(
-          duration: const Duration(milliseconds: 150),
+          duration: const Duration(milliseconds: 180),
           padding: EdgeInsets.symmetric(
             horizontal: widget.isMobile ? 10 : 12,
             vertical: widget.isMobile ? 8 : 8,
           ),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            color: _isHovering
-                ? const Color(0xFF42A5F5).withValues(alpha: 0.15)
-                : Colors.transparent,
+            color: widget.isActive
+                ? _accent.withValues(alpha: 0.12)
+                : (_isHovering
+                    ? _accent.withValues(alpha: 0.08)
+                    : Colors.transparent),
+            border: Border.all(
+              color: widget.isActive
+                  ? _accent.withValues(alpha: 0.4)
+                  : Colors.transparent,
+              width: 1,
+            ),
           ),
-          child: Row(
+          child: Column(
             mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Icon(
-                widget.icon,
-                color: _isHovering
-                    ? const Color(0xFF42A5F5)
-                    : Colors.white.withValues(alpha: 0.7),
-                size: widget.isMobile ? 18 : 18,
-              ),
-              if (!widget.isMobile) ...[
-                const SizedBox(width: 6),
-                Text(
-                  widget.label,
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: _isHovering
-                        ? const Color(0xFF42A5F5)
-                        : Colors.white.withValues(alpha: 0.7),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    widget.icon,
+                    color: color,
+                    size: 18,
                   ),
+                  if (!widget.isMobile) ...[
+                    const SizedBox(width: 6),
+                    Text(
+                      widget.label,
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: color,
+                      ),
+                    ),
+                  ],
+                ],
+              ),
+              // Subrayado de sección activa
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 200),
+                margin: const EdgeInsets.only(top: 4),
+                height: 2,
+                width: widget.isActive ? (widget.isMobile ? 14 : 22) : 0,
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                    colors: [Color(0xFF42A5F5), Color(0xFF00D2B8)],
+                  ),
+                  borderRadius: BorderRadius.circular(2),
                 ),
-              ],
+              ),
             ],
           ),
         ),
@@ -1654,7 +1826,7 @@ class _HoverNavItemState extends State<_HoverNavItem> {
   }
 }
 
-// Widget con efecto hover para project cards
+// Project card con tilt 3D, status pill, icono/logo
 class _HoverProjectCard extends StatefulWidget {
   final String title;
   final String description;
@@ -1662,14 +1834,26 @@ class _HoverProjectCard extends StatefulWidget {
   final Color color;
   final bool featured;
   final bool isMobile;
+  final IconData? icon;
+  final String? logoAsset;
+  final Color? logoBgColor;
+  final String? statusLabel;
+  final String? statusIcon;
+  final Color? statusColor;
 
   const _HoverProjectCard({
     required this.title,
     required this.description,
     required this.tech,
     required this.color,
-    required this.featured,
+    this.featured = false,
     this.isMobile = false,
+    this.icon,
+    this.logoAsset,
+    this.logoBgColor,
+    this.statusLabel,
+    this.statusIcon,
+    this.statusColor,
   });
 
   @override
@@ -1677,124 +1861,1175 @@ class _HoverProjectCard extends StatefulWidget {
 }
 
 class _HoverProjectCardState extends State<_HoverProjectCard> {
-  bool _isHovering = false;
+  bool _hovering = false;
+  Offset _localPos = Offset.zero;
+  Size _size = Size.zero;
+
+  void _onHoverMove(PointerEvent e) {
+    if (widget.isMobile) return;
+    setState(() => _localPos = e.localPosition);
+  }
 
   @override
   Widget build(BuildContext context) {
     final isMobile = widget.isMobile;
+    final featured = widget.featured;
+
+    // Cálculo de tilt 3D basado en posición del ratón
+    double rotX = 0;
+    double rotY = 0;
+    if (!isMobile && _hovering && _size != Size.zero) {
+      final cx = _size.width / 2;
+      final cy = _size.height / 2;
+      final nx = ((_localPos.dx - cx) / cx).clamp(-1.0, 1.0);
+      final ny = ((_localPos.dy - cy) / cy).clamp(-1.0, 1.0);
+      rotX = -ny * 0.05;
+      rotY = nx * 0.05;
+    }
+
+    final transform = Matrix4.identity()
+      ..setEntry(3, 2, 0.001)
+      ..rotateX(rotX)
+      ..rotateY(rotY)
+      ..translate(0.0, _hovering ? -6.0 : 0.0);
 
     return MouseRegion(
-      onEnter: (_) => setState(() => _isHovering = true),
-      onExit: (_) => setState(() => _isHovering = false),
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        padding: EdgeInsets.all(isMobile ? 18 : 28),
-        transform: _isHovering
-            ? (Matrix4.identity()..translate(0.0, -4.0))
-            : Matrix4.identity(),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(isMobile ? 16 : 20),
-          border: Border.all(
-            color: isMobile
-                ? widget.color.withValues(alpha: 0.3)
-                : (_isHovering
-                    ? widget.color.withValues(alpha: 0.5)
-                    : Colors.white.withValues(alpha: 0.08)),
-            width: isMobile ? 1.5 : (_isHovering ? 2 : 1),
-          ),
-          gradient: (isMobile || _isHovering)
-              ? LinearGradient(
-                  colors: [
-                    widget.color.withValues(alpha: isMobile ? 0.08 : 0.15),
-                    widget.color.withValues(alpha: isMobile ? 0.02 : 0.05),
-                  ],
-                )
-              : null,
-          boxShadow: _isHovering
-              ? [
-                  BoxShadow(
-                    color: widget.color.withValues(alpha: 0.3),
-                    blurRadius: 20,
-                    offset: const Offset(0, 10),
-                  ),
-                ]
-              : [],
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
+      onEnter: (_) => setState(() => _hovering = true),
+      onExit: (_) => setState(() {
+        _hovering = false;
+        _localPos = Offset.zero;
+      }),
+      onHover: _onHoverMove,
+      child: LayoutBuilder(
+        builder: (context, c) {
+          _size = Size(c.maxWidth, c.maxHeight);
+          return AnimatedContainer(
+            duration: const Duration(milliseconds: 220),
+            curve: Curves.easeOutCubic,
+            transform: transform,
+            transformAlignment: Alignment.center,
+            padding: EdgeInsets.all(
+              isMobile ? 18 : (featured ? 32 : 24),
+            ),
+            decoration: BoxDecoration(
+              borderRadius:
+                  BorderRadius.circular(isMobile ? 16 : (featured ? 22 : 18)),
+              border: Border.all(
+                color: _hovering
+                    ? widget.color.withValues(alpha: 0.55)
+                    : widget.color.withValues(alpha: 0.18),
+                width: _hovering ? 1.5 : 1,
+              ),
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  widget.color.withValues(alpha: _hovering ? 0.18 : 0.08),
+                  widget.color.withValues(alpha: _hovering ? 0.05 : 0.02),
+                ],
+              ),
+              boxShadow: _hovering
+                  ? [
+                      BoxShadow(
+                        color: widget.color.withValues(alpha: 0.3),
+                        blurRadius: 28,
+                        offset: const Offset(0, 14),
+                      ),
+                    ]
+                  : [],
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
               children: [
-                if (isMobile)
-                  Container(
-                    width: 8,
-                    height: 8,
-                    margin: const EdgeInsets.only(right: 10),
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: widget.color,
-                      boxShadow: [
-                        BoxShadow(
-                          color: widget.color.withValues(alpha: 0.5),
-                          blurRadius: 6,
+                // Fila superior: logo/icono + status
+                Row(
+                  children: [
+                    if (widget.logoAsset != null)
+                      _ProjectLogoBox(
+                        asset: widget.logoAsset!,
+                        size: isMobile ? 44 : (featured ? 64 : 52),
+                        color: widget.color,
+                        fallbackIcon: widget.icon,
+                        backgroundColor: widget.logoBgColor,
+                      )
+                    else if (widget.icon != null)
+                      Container(
+                        width: isMobile ? 40 : (featured ? 58 : 48),
+                        height: isMobile ? 40 : (featured ? 58 : 48),
+                        decoration: BoxDecoration(
+                          borderRadius:
+                              BorderRadius.circular(isMobile ? 12 : 14),
+                          gradient: LinearGradient(
+                            colors: [
+                              widget.color,
+                              widget.color.withValues(alpha: 0.7),
+                            ],
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: widget.color.withValues(alpha: 0.35),
+                              blurRadius: 14,
+                              offset: const Offset(0, 6),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
+                        child: Icon(
+                          widget.icon,
+                          color: Colors.white,
+                          size: isMobile ? 22 : (featured ? 30 : 26),
+                        ),
+                      ),
+                    const Spacer(),
+                    if (widget.statusLabel != null)
+                      _StatusPill(
+                        label: widget.statusLabel!,
+                        icon: widget.statusIcon,
+                        color: widget.statusColor ?? widget.color,
+                        isMobile: isMobile,
+                      ),
+                  ],
+                ),
+                SizedBox(height: isMobile ? 14 : 18),
+
+                // Título
+                Text(
+                  widget.title,
+                  style: GoogleFonts.spaceGrotesk(
+                    fontSize: isMobile
+                        ? (featured ? 22 : 20)
+                        : (featured ? 32 : 24),
+                    fontWeight: FontWeight.w800,
+                    color: Colors.white,
+                    letterSpacing: -0.5,
+                    height: 1.1,
                   ),
-                Expanded(
-                  child: Text(
-                    widget.title,
-                    style: TextStyle(
-                      fontSize: isMobile ? 18 : 26,
-                      fontWeight: FontWeight.w900,
-                      color: widget.color,
-                    ),
+                ),
+                SizedBox(height: isMobile ? 8 : 10),
+
+                // Descripción
+                Text(
+                  widget.description,
+                  style: TextStyle(
+                    fontSize: isMobile ? 13 : (featured ? 16 : 14),
+                    color: Colors.white.withValues(alpha: 0.68),
+                    height: 1.55,
                   ),
+                ),
+                SizedBox(height: isMobile ? 14 : 18),
+
+                // Tech tags
+                Wrap(
+                  spacing: isMobile ? 6 : 8,
+                  runSpacing: isMobile ? 6 : 8,
+                  children: widget.tech
+                      .map((t) => _TechTag(
+                            label: t,
+                            color: widget.color,
+                            isMobile: isMobile,
+                          ))
+                      .toList(),
                 ),
               ],
             ),
-            SizedBox(height: isMobile ? 8 : 12),
-            Text(
-              widget.description,
-              style: TextStyle(
-                fontSize: isMobile ? 13 : 16,
-                color: Colors.white.withValues(alpha: 0.65),
-                height: 1.5,
-              ),
-            ),
-            SizedBox(height: isMobile ? 12 : 16),
-            Wrap(
-              spacing: isMobile ? 6 : 8,
-              runSpacing: isMobile ? 6 : 8,
-              children: widget.tech
-                  .map((t) => _buildTechTag(t, isMobile: isMobile))
-                  .toList(),
-            ),
+          );
+        },
+      ),
+    );
+  }
+}
+
+// Pill de estado (🏆 Premiado, 🟢 Activo, etc.)
+class _StatusPill extends StatelessWidget {
+  final String label;
+  final String? icon;
+  final Color color;
+  final bool isMobile;
+
+  const _StatusPill({
+    required this.label,
+    required this.color,
+    this.icon,
+    this.isMobile = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(
+        horizontal: isMobile ? 9 : 11,
+        vertical: isMobile ? 5 : 6,
+      ),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(999),
+        color: color.withValues(alpha: 0.12),
+        border: Border.all(
+          color: color.withValues(alpha: 0.35),
+          width: 1,
+        ),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (icon != null) ...[
+            Text(icon!, style: TextStyle(fontSize: isMobile ? 11 : 12)),
+            const SizedBox(width: 5),
           ],
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: isMobile ? 10 : 11,
+              fontWeight: FontWeight.w700,
+              color: color,
+              letterSpacing: 0.3,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// Tag de tecnología
+class _TechTag extends StatelessWidget {
+  final String label;
+  final Color color;
+  final bool isMobile;
+
+  const _TechTag({
+    required this.label,
+    required this.color,
+    this.isMobile = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(
+        horizontal: isMobile ? 10 : 11,
+        vertical: isMobile ? 4 : 5,
+      ),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8),
+        color: Colors.white.withValues(alpha: 0.05),
+        border: Border.all(
+          color: color.withValues(alpha: 0.25),
+          width: 1,
+        ),
+      ),
+      child: Text(
+        label,
+        style: TextStyle(
+          fontSize: isMobile ? 11 : 12,
+          fontWeight: FontWeight.w600,
+          color: Colors.white.withValues(alpha: 0.85),
+          letterSpacing: 0.2,
         ),
       ),
     );
   }
+}
 
-  Widget _buildTechTag(String text, {bool isMobile = false}) {
+// Encabezado de sección: número + eyebrow + título + línea decorativa
+class _SectionHeader extends StatelessWidget {
+  final String number;
+  final String eyebrow;
+  final String title;
+  final String? subtitle;
+  final Color accent;
+  final bool isMobile;
+
+  const _SectionHeader({
+    required this.number,
+    required this.eyebrow,
+    required this.title,
+    required this.accent,
+    this.subtitle,
+    this.isMobile = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment:
+          isMobile ? CrossAxisAlignment.center : CrossAxisAlignment.start,
+      children: [
+        // Fila: número + eyebrow + línea
+        Row(
+          mainAxisSize: isMobile ? MainAxisSize.min : MainAxisSize.max,
+          children: [
+            Text(
+              number,
+              style: GoogleFonts.spaceGrotesk(
+                fontSize: isMobile ? 13 : 15,
+                fontWeight: FontWeight.w700,
+                color: accent,
+                letterSpacing: 2,
+              ),
+            ),
+            const SizedBox(width: 10),
+            Container(
+              width: isMobile ? 18 : 28,
+              height: 1.2,
+              color: accent.withValues(alpha: 0.6),
+            ),
+            const SizedBox(width: 10),
+            Text(
+              eyebrow.toUpperCase(),
+              style: TextStyle(
+                fontSize: isMobile ? 11 : 12,
+                fontWeight: FontWeight.w700,
+                color: Colors.white.withValues(alpha: 0.55),
+                letterSpacing: 3,
+              ),
+            ),
+            if (!isMobile) ...[
+              const SizedBox(width: 16),
+              Expanded(
+                child: Container(
+                  height: 1,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        Colors.white.withValues(alpha: 0.08),
+                        Colors.white.withValues(alpha: 0),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ],
+        ),
+        const SizedBox(height: 12),
+        // Título grande
+        Text(
+          title,
+          textAlign: isMobile ? TextAlign.center : TextAlign.start,
+          style: GoogleFonts.spaceGrotesk(
+            fontSize: isMobile ? 30 : 44,
+            fontWeight: FontWeight.w800,
+            color: Colors.white,
+            height: 1.05,
+            letterSpacing: -0.8,
+          ),
+        ),
+        if (subtitle != null) ...[
+          const SizedBox(height: 8),
+          Text(
+            subtitle!,
+            textAlign: isMobile ? TextAlign.center : TextAlign.start,
+            style: TextStyle(
+              fontSize: isMobile ? 13 : 16,
+              color: Colors.white.withValues(alpha: 0.55),
+              height: 1.5,
+            ),
+          ),
+        ],
+      ],
+    );
+  }
+}
+
+// Punto verde pulsante
+class _PulsingDot extends StatefulWidget {
+  final Color color;
+  final double size;
+
+  const _PulsingDot({required this.color, this.size = 8});
+
+  @override
+  State<_PulsingDot> createState() => _PulsingDotState();
+}
+
+class _PulsingDotState extends State<_PulsingDot>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _c;
+
+  @override
+  void initState() {
+    super.initState();
+    _c = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1600),
+    )..repeat();
+  }
+
+  @override
+  void dispose() {
+    _c.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: widget.size * 2.4,
+      height: widget.size * 2.4,
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          AnimatedBuilder(
+            animation: _c,
+            builder: (context, _) {
+              final t = _c.value;
+              return Opacity(
+                opacity: (1 - t).clamp(0.0, 1.0),
+                child: Container(
+                  width: widget.size * (1 + t * 1.6),
+                  height: widget.size * (1 + t * 1.6),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: widget.color.withValues(alpha: 0.35),
+                  ),
+                ),
+              );
+            },
+          ),
+          Container(
+            width: widget.size,
+            height: widget.size,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: widget.color,
+              boxShadow: [
+                BoxShadow(
+                  color: widget.color.withValues(alpha: 0.6),
+                  blurRadius: 6,
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// Badge "Disponible para proyectos" con punto verde pulsante
+class _AvailableBadge extends StatelessWidget {
+  final bool isMobile;
+  const _AvailableBadge({this.isMobile = false});
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(
-        horizontal: isMobile ? 10 : 12,
-        vertical: isMobile ? 4 : 6,
+        horizontal: isMobile ? 12 : 14,
+        vertical: isMobile ? 7 : 8,
       ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(999),
-        color: Colors.white.withValues(alpha: 0.08),
+        color: const Color(0xFF10B981).withValues(alpha: 0.1),
         border: Border.all(
-          color: Colors.white.withValues(alpha: 0.1),
+          color: const Color(0xFF10B981).withValues(alpha: 0.3),
+          width: 1,
         ),
       ),
-      child: Text(
-        text,
-        style: TextStyle(
-          fontSize: isMobile ? 11 : 13,
-          fontWeight: FontWeight.w600,
-          color: Colors.white.withValues(alpha: 0.7),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const _PulsingDot(color: Color(0xFF10B981), size: 7),
+          const SizedBox(width: 6),
+          Text(
+            'Disponible para proyectos',
+            style: TextStyle(
+              fontSize: isMobile ? 11 : 12,
+              fontWeight: FontWeight.w600,
+              color: const Color(0xFF10B981),
+              letterSpacing: 0.2,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// Título con ShaderMask gradiente
+class _GradientText extends StatelessWidget {
+  final String text;
+  final TextStyle style;
+  final List<Color> colors;
+  final TextAlign? textAlign;
+
+  const _GradientText({
+    required this.text,
+    required this.style,
+    required this.colors,
+    this.textAlign,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ShaderMask(
+      blendMode: BlendMode.srcIn,
+      shaderCallback: (bounds) => LinearGradient(
+        colors: colors,
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+      ).createShader(Rect.fromLTWH(0, 0, bounds.width, bounds.height)),
+      child: Text(text, style: style, textAlign: textAlign),
+    );
+  }
+}
+
+// Anillo conic rotatorio alrededor del avatar
+class _RotatingAvatarRing extends StatefulWidget {
+  final double size;
+  final double thickness;
+  final Widget child;
+  final List<Color> colors;
+
+  const _RotatingAvatarRing({
+    required this.size,
+    required this.child,
+    required this.colors,
+    this.thickness = 3,
+  });
+
+  @override
+  State<_RotatingAvatarRing> createState() => _RotatingAvatarRingState();
+}
+
+class _RotatingAvatarRingState extends State<_RotatingAvatarRing>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _c;
+
+  @override
+  void initState() {
+    super.initState();
+    _c = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 8),
+    )..repeat();
+  }
+
+  @override
+  void dispose() {
+    _c.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _c,
+      builder: (context, _) {
+        return Container(
+          width: widget.size,
+          height: widget.size,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            boxShadow: [
+              BoxShadow(
+                color: widget.colors.first.withValues(alpha: 0.28),
+                blurRadius: 40,
+                spreadRadius: 2,
+              ),
+            ],
+          ),
+          child: CustomPaint(
+            painter: _ConicRingPainter(
+              progress: _c.value,
+              colors: widget.colors,
+              thickness: widget.thickness,
+            ),
+            child: Padding(
+              padding: EdgeInsets.all(widget.thickness + 3),
+              child: ClipOval(
+                child: Container(
+                  decoration: const BoxDecoration(
+                    color: Color(0xFF0a0e1a),
+                  ),
+                  child: widget.child,
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+class _ConicRingPainter extends CustomPainter {
+  final double progress;
+  final List<Color> colors;
+  final double thickness;
+
+  _ConicRingPainter({
+    required this.progress,
+    required this.colors,
+    required this.thickness,
+  });
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final rect = Offset.zero & size;
+    final paint = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = thickness
+      ..shader = SweepGradient(
+        startAngle: 0,
+        endAngle: 2 * math.pi,
+        transform: GradientRotation(progress * 2 * math.pi),
+        colors: [...colors, colors.first],
+      ).createShader(rect);
+    canvas.drawCircle(
+      size.center(Offset.zero),
+      size.width / 2 - thickness / 2,
+      paint,
+    );
+  }
+
+  @override
+  bool shouldRepaint(covariant _ConicRingPainter oldDelegate) =>
+      oldDelegate.progress != progress;
+}
+
+// Botón CTA primario con gradiente
+class _PrimaryCTA extends StatefulWidget {
+  final String label;
+  final IconData icon;
+  final VoidCallback onTap;
+  final bool isMobile;
+
+  const _PrimaryCTA({
+    required this.label,
+    required this.icon,
+    required this.onTap,
+    this.isMobile = false,
+  });
+
+  @override
+  State<_PrimaryCTA> createState() => _PrimaryCTAState();
+}
+
+class _PrimaryCTAState extends State<_PrimaryCTA> {
+  bool _hover = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      onEnter: (_) => setState(() => _hover = true),
+      onExit: (_) => setState(() => _hover = false),
+      child: GestureDetector(
+        onTap: widget.onTap,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          padding: EdgeInsets.symmetric(
+            horizontal: widget.isMobile ? 20 : 26,
+            vertical: widget.isMobile ? 12 : 15,
+          ),
+          transform: _hover
+              ? (Matrix4.identity()..translate(0.0, -2.0))
+              : Matrix4.identity(),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(999),
+            gradient: const LinearGradient(
+              colors: [Color(0xFF42A5F5), Color(0xFF00D2B8)],
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: const Color(0xFF42A5F5)
+                    .withValues(alpha: _hover ? 0.5 : 0.3),
+                blurRadius: _hover ? 24 : 16,
+                offset: Offset(0, _hover ? 10 : 6),
+              ),
+            ],
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                widget.label,
+                style: TextStyle(
+                  fontSize: widget.isMobile ? 13 : 15,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.white,
+                  letterSpacing: 0.3,
+                ),
+              ),
+              const SizedBox(width: 8),
+              Icon(widget.icon,
+                  size: widget.isMobile ? 16 : 18, color: Colors.white),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// Botón CTA secundario (ghost)
+class _SecondaryCTA extends StatefulWidget {
+  final String label;
+  final IconData icon;
+  final VoidCallback onTap;
+  final bool isMobile;
+
+  const _SecondaryCTA({
+    required this.label,
+    required this.icon,
+    required this.onTap,
+    this.isMobile = false,
+  });
+
+  @override
+  State<_SecondaryCTA> createState() => _SecondaryCTAState();
+}
+
+class _SecondaryCTAState extends State<_SecondaryCTA> {
+  bool _hover = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      onEnter: (_) => setState(() => _hover = true),
+      onExit: (_) => setState(() => _hover = false),
+      child: GestureDetector(
+        onTap: widget.onTap,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          padding: EdgeInsets.symmetric(
+            horizontal: widget.isMobile ? 20 : 26,
+            vertical: widget.isMobile ? 12 : 15,
+          ),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(999),
+            color: _hover
+                ? Colors.white.withValues(alpha: 0.08)
+                : Colors.transparent,
+            border: Border.all(
+              color: Colors.white.withValues(alpha: _hover ? 0.35 : 0.18),
+              width: 1.2,
+            ),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(widget.icon,
+                  size: widget.isMobile ? 16 : 18, color: Colors.white),
+              const SizedBox(width: 8),
+              Text(
+                widget.label,
+                style: TextStyle(
+                  fontSize: widget.isMobile ? 13 : 15,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.white,
+                  letterSpacing: 0.3,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// Contador animado de 0 hasta target
+class _AnimatedCounter extends StatefulWidget {
+  final int target;
+  final Duration duration;
+  final TextStyle style;
+  final String suffix;
+
+  const _AnimatedCounter({
+    required this.target,
+    required this.style,
+    this.suffix = '',
+    this.duration = const Duration(milliseconds: 1600),
+  });
+
+  @override
+  State<_AnimatedCounter> createState() => _AnimatedCounterState();
+}
+
+class _AnimatedCounterState extends State<_AnimatedCounter>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _c;
+
+  @override
+  void initState() {
+    super.initState();
+    _c = AnimationController(vsync: this, duration: widget.duration);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) _c.forward();
+    });
+  }
+
+  @override
+  void dispose() {
+    _c.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _c,
+      builder: (context, _) {
+        final t = Curves.easeOutCubic.transform(_c.value);
+        final value = (t * widget.target).round();
+        return Text('$value${widget.suffix}', style: widget.style);
+      },
+    );
+  }
+}
+
+// Card de una estadística individual
+class _StatCard extends StatefulWidget {
+  final int value;
+  final String suffix;
+  final String label;
+  final IconData icon;
+  final Color color;
+  final bool isMobile;
+  final VoidCallback? onTap;
+  final String? logoAsset;
+  final Color? logoBgColor;
+  final String? logoEmoji;
+
+  const _StatCard({
+    required this.value,
+    required this.label,
+    required this.icon,
+    required this.color,
+    this.suffix = '',
+    this.isMobile = false,
+    this.onTap,
+    this.logoAsset,
+    this.logoBgColor,
+    this.logoEmoji,
+  });
+
+  @override
+  State<_StatCard> createState() => _StatCardState();
+}
+
+class _StatCardState extends State<_StatCard> {
+  bool _hover = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final isMobile = widget.isMobile;
+    final color = widget.color;
+    final clickable = widget.onTap != null;
+    final showTrend = widget.suffix == '+';
+
+    return MouseRegion(
+      cursor: clickable ? SystemMouseCursors.click : MouseCursor.defer,
+      onEnter: (_) => setState(() => _hover = true),
+      onExit: (_) => setState(() => _hover = false),
+      child: GestureDetector(
+        onTap: widget.onTap,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 220),
+          curve: Curves.easeOutCubic,
+          padding: EdgeInsets.all(isMobile ? 14 : 22),
+          transform: _hover
+              ? (Matrix4.identity()..translate(0.0, -6.0))
+              : Matrix4.identity(),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(isMobile ? 14 : 18),
+            border: Border.all(
+              color: _hover
+                  ? color.withValues(alpha: 0.55)
+                  : color.withValues(alpha: 0.22),
+              width: _hover ? 1.5 : 1,
+            ),
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                color.withValues(alpha: _hover ? 0.20 : 0.10),
+                color.withValues(alpha: _hover ? 0.06 : 0.02),
+              ],
+            ),
+            boxShadow: _hover
+                ? [
+                    BoxShadow(
+                      color: color.withValues(alpha: 0.3),
+                      blurRadius: 26,
+                      offset: const Offset(0, 12),
+                    ),
+                  ]
+                : [],
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                children: [
+                  // Emoji / logo del asset / icono Material de fallback
+                  if (widget.logoEmoji != null)
+                    Container(
+                      width: isMobile ? 38 : 46,
+                      height: isMobile ? 38 : 46,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [
+                            color,
+                            color.withValues(alpha: 0.7),
+                          ],
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: color.withValues(alpha: _hover ? 0.5 : 0.32),
+                            blurRadius: _hover ? 16 : 10,
+                            offset: Offset(0, _hover ? 7 : 4),
+                          ),
+                        ],
+                      ),
+                      child: Center(
+                        child: Text(
+                          widget.logoEmoji!,
+                          style: TextStyle(
+                            fontSize: isMobile ? 22 : 26,
+                            height: 1,
+                          ),
+                        ),
+                      ),
+                    )
+                  else if (widget.logoAsset != null)
+                    _ProjectLogoBox(
+                      asset: widget.logoAsset!,
+                      size: isMobile ? 42 : 50,
+                      color: color,
+                      fallbackIcon: widget.icon,
+                      backgroundColor: widget.logoBgColor,
+                    )
+                  else
+                    Container(
+                      width: isMobile ? 38 : 46,
+                      height: isMobile ? 38 : 46,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [
+                            color,
+                            color.withValues(alpha: 0.7),
+                          ],
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: color.withValues(alpha: _hover ? 0.5 : 0.32),
+                            blurRadius: _hover ? 16 : 10,
+                            offset: Offset(0, _hover ? 7 : 4),
+                          ),
+                        ],
+                      ),
+                      child: Icon(
+                        widget.icon,
+                        color: Colors.white,
+                        size: isMobile ? 20 : 24,
+                      ),
+                    ),
+                  const Spacer(),
+                  // Indicador de tendencia para stats de crecimiento
+                  if (showTrend)
+                    AnimatedOpacity(
+                      duration: const Duration(milliseconds: 200),
+                      opacity: _hover ? 1.0 : 0.55,
+                      child: Icon(
+                        Icons.trending_up_rounded,
+                        color: color,
+                        size: isMobile ? 18 : 20,
+                      ),
+                    ),
+                ],
+              ),
+              SizedBox(height: isMobile ? 14 : 18),
+              _AnimatedCounter(
+                target: widget.value,
+                suffix: widget.suffix,
+                style: GoogleFonts.spaceGrotesk(
+                  fontSize: isMobile ? 26 : 38,
+                  fontWeight: FontWeight.w800,
+                  color: Colors.white,
+                  letterSpacing: -1,
+                  height: 1,
+                ),
+              ),
+              const SizedBox(height: 6),
+              Text(
+                widget.label,
+                style: TextStyle(
+                  fontSize: isMobile ? 11 : 12,
+                  color: Colors.white.withValues(alpha: 0.55),
+                  fontWeight: FontWeight.w600,
+                  letterSpacing: 0.5,
+                ),
+              ),
+              SizedBox(height: isMobile ? 10 : 14),
+              // Línea de acento que se expande al hover
+              LayoutBuilder(
+                builder: (context, c) {
+                  return Stack(
+                    children: [
+                      Container(
+                        width: c.maxWidth,
+                        height: 2,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(2),
+                          color: Colors.white.withValues(alpha: 0.05),
+                        ),
+                      ),
+                      AnimatedContainer(
+                        duration: const Duration(milliseconds: 350),
+                        curve: Curves.easeOutCubic,
+                        height: 2,
+                        width: _hover ? c.maxWidth : c.maxWidth * 0.25,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(2),
+                          gradient: LinearGradient(
+                            colors: [
+                              color,
+                              color.withValues(alpha: 0),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// Fade + slide-up al montarse, con delay configurable para stagger
+class _FadeInUp extends StatefulWidget {
+  final Widget child;
+  final Duration delay;
+  final Duration duration;
+  final double offset;
+
+  const _FadeInUp({
+    required this.child,
+    this.delay = Duration.zero,
+    this.duration = const Duration(milliseconds: 650),
+    this.offset = 30,
+  });
+
+  @override
+  State<_FadeInUp> createState() => _FadeInUpState();
+}
+
+class _FadeInUpState extends State<_FadeInUp>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _c;
+
+  @override
+  void initState() {
+    super.initState();
+    _c = AnimationController(vsync: this, duration: widget.duration);
+    Future.delayed(widget.delay, () {
+      if (mounted) _c.forward();
+    });
+  }
+
+  @override
+  void dispose() {
+    _c.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _c,
+      builder: (context, child) {
+        final t = Curves.easeOutCubic.transform(_c.value);
+        return Opacity(
+          opacity: t,
+          child: Transform.translate(
+            offset: Offset(0, (1 - t) * widget.offset),
+            child: child,
+          ),
+        );
+      },
+      child: widget.child,
+    );
+  }
+}
+
+// Caja cuadrada para logo de proyecto: fondo sutil, borde del color acento,
+// glow suave y fallback al icono Material si el asset no carga
+class _ProjectLogoBox extends StatelessWidget {
+  final String asset;
+  final double size;
+  final Color color;
+  final IconData? fallbackIcon;
+  final Color? backgroundColor;
+
+  const _ProjectLogoBox({
+    required this.asset,
+    required this.size,
+    required this.color,
+    this.fallbackIcon,
+    this.backgroundColor,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final radius = size * 0.26;
+    final bg = backgroundColor ?? Colors.white.withValues(alpha: 0.04);
+    return Container(
+      width: size,
+      height: size,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(radius),
+        color: bg,
+        border: Border.all(
+          color: color.withValues(alpha: 0.35),
+          width: 1,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: color.withValues(alpha: 0.3),
+            blurRadius: 16,
+            offset: const Offset(0, 6),
+          ),
+        ],
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(radius - 1),
+        child: Padding(
+          padding: EdgeInsets.all(size * 0.08),
+          child: asset.endsWith('.svg')
+              ? SvgPicture.asset(
+                  asset,
+                  fit: BoxFit.contain,
+                  placeholderBuilder: (_) => Icon(
+                    fallbackIcon ?? Icons.folder_rounded,
+                    color: Colors.white,
+                    size: size * 0.55,
+                  ),
+                )
+              : Image.asset(
+                  asset,
+                  fit: BoxFit.contain,
+                  errorBuilder: (ctx, err, stack) => Icon(
+                    fallbackIcon ?? Icons.folder_rounded,
+                    color: Colors.white,
+                    size: size * 0.55,
+                  ),
+                ),
         ),
       ),
     );
