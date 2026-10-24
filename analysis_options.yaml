@@ -37,3 +37,6 @@ analyzer:
 
     # Parámetros opcionales sin uso explícito
     unused_element_parameter: ignore
+  exclude:
+    - build/**
+    - web/**
