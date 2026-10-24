@@ -456,6 +456,15 @@ class _HomePageState extends State<HomePage> {
                           color: const Color(0xFFFF6D5A),
                         ),
                       ),
+                      TypewriterAnimatedText(
+                        'Agentes de IA & Bots de trading',
+                        speed: const Duration(milliseconds: 70),
+                        textStyle: TextStyle(
+                          fontSize: isVerySmall ? 13 : 14,
+                          fontWeight: FontWeight.w700,
+                          color: const Color(0xFF7C5CFF),
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -468,8 +477,8 @@ class _HomePageState extends State<HomePage> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8),
               child: Text(
-                'Desarrollador junior de apps móviles con Flutter. '
-                'Apasionado por la automatización y el aprendizaje continuo.',
+                'Desarrollador de apps móviles con Flutter. '
+                'Creo agentes de IA y automatizaciones. En mi último semestre, desarrollando mi tesis.',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: isVerySmall ? 13 : 14,
@@ -485,7 +494,7 @@ class _HomePageState extends State<HomePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                _buildBadge('UTEG · 7mo', isMobile: true),
+                _buildBadge('UTEG · 8vo · Tesis', isMobile: true),
                 const SizedBox(width: 8),
                 _buildBadge('Ecuador 🇪🇨', isMobile: true),
               ],
@@ -680,6 +689,15 @@ class _HomePageState extends State<HomePage> {
                           color: const Color(0xFFFF6D5A),
                         ),
                       ),
+                      TypewriterAnimatedText(
+                        'Agentes de IA & Bots de trading',
+                        speed: const Duration(milliseconds: 80),
+                        textStyle: TextStyle(
+                          fontSize: isTablet ? 20 : 24,
+                          fontWeight: FontWeight.w700,
+                          color: const Color(0xFF7C5CFF),
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -687,9 +705,10 @@ class _HomePageState extends State<HomePage> {
 
               const SizedBox(height: 24),
               Text(
-                'Soy un desarrollador junior de aplicaciones móviles especializado en frontend. '
-                'Trabajo con Dart y Flutter, conozco Python para automatización, n8n, Git y Linux. '
-                'Me encanta aprender nuevas tecnologías y mejorar mis habilidades constantemente.',
+                'Soy desarrollador de aplicaciones móviles especializado en frontend. '
+                'Trabajo con Dart y Flutter, y uso Python, n8n, Git y Linux para automatizar. '
+                'Construyo agentes de IA y bots de trading, como Vida, mi agente personal que actúa en mi celular. '
+                'Actualmente cursando el último semestre y desarrollando mi tesis.',
                 style: TextStyle(
                   fontSize: isTablet ? 15 : 17,
                   color: Colors.white.withValues(alpha: 0.7),
@@ -704,7 +723,8 @@ class _HomePageState extends State<HomePage> {
                 spacing: 12,
                 runSpacing: 12,
                 children: [
-                  _buildBadge('UTEG · 7mo semestre · Ingeniería de Software'),
+                  _buildBadge('UTEG · 8vo semestre · Ingeniería de Software'),
+                  _buildBadge('Tesis en curso 🎓'),
                   _buildBadge('Ecuador 🇪🇨'),
                 ],
               ),
@@ -783,7 +803,7 @@ class _HomePageState extends State<HomePage> {
 
     final stats = [
       _StatCard(
-        value: 4,
+        value: 6,
         suffix: '+',
         label: 'PROYECTOS',
         icon: Icons.rocket_launch_rounded,
@@ -813,7 +833,7 @@ class _HomePageState extends State<HomePage> {
         onTap: () => _scrollToSection(_proyectosKey),
       ),
       _StatCard(
-        value: 7,
+        value: 8,
         suffix: 'º sem',
         label: 'INGENIERÍA SOFTWARE',
         icon: Icons.school_rounded,
@@ -1030,11 +1050,37 @@ class _HomePageState extends State<HomePage> {
             eyebrow: 'Portfolio',
             title: 'Proyectos destacados',
             subtitle:
-                'Una muestra de apps que he construido, desde hackathones hasta productos reales',
+                'Apps, agentes de IA y bots que he construido, desde hackathones hasta productos reales',
             accent: const Color(0xFF00D2B8),
             isMobile: isMobile,
           ),
           SizedBox(height: isMobile ? 24 : 40),
+
+          // Featured: Vida (agente Hermes, full-width)
+          _HoverProjectCard(
+            title: 'Vida',
+            description: isMobile
+                ? 'Agente de IA Hermes en tu celular, Telegram y escritorio: llama, pone música, abre apps y más.'
+                : 'Agente de IA personal basado en Hermes, disponible como app móvil, bot de Telegram y app de escritorio. Conversa por WhatsApp y Telegram y, desde el celular, ejecuta acciones reales en el dispositivo: encender la linterna, abrir YouTube, reproducir música o realizar llamadas.',
+            tech: isMobile
+                ? const ['Agente IA', 'Hermes', 'Telegram', 'WhatsApp']
+                : const [
+                    'Agente IA',
+                    'Hermes',
+                    'App móvil',
+                    'Escritorio',
+                    'Telegram',
+                    'WhatsApp'
+                  ],
+            color: const Color(0xFF00D2B8),
+            featured: true,
+            isMobile: isMobile,
+            icon: Icons.smart_toy_rounded,
+            statusLabel: isMobile ? 'Activo' : 'Activo · Multiplataforma',
+            statusIcon: '🟢',
+            statusColor: const Color(0xFF10B981),
+          ),
+          SizedBox(height: isMobile ? 16 : 24),
 
           // Featured: AlertaEstudiantil (full-width, premiado)
           _HoverProjectCard(
@@ -1057,7 +1103,7 @@ class _HomePageState extends State<HomePage> {
           ),
           SizedBox(height: isMobile ? 16 : 24),
 
-          // Grid secundario: 3 proyectos (2 cols desktop, 1 col mobile)
+          // Grid secundario: 4 proyectos (2 cols desktop, 1 col mobile)
           LayoutBuilder(
             builder: (context, constraints) {
               final cols = isMobile ? 1 : 2;
@@ -1065,6 +1111,19 @@ class _HomePageState extends State<HomePage> {
               final w =
                   (constraints.maxWidth - spacing * (cols - 1)) / cols;
               final cards = <Widget>[
+                _HoverProjectCard(
+                  title: 'Bot de trading del Oro',
+                  description: isMobile
+                      ? 'Bot de trading automatizado para el mercado del Oro.'
+                      : 'Bot de trading automatizado para el mercado del Oro, desarrollado de principio a fin.',
+                  tech: const ['Trading', 'Oro', 'Automatización'],
+                  color: const Color(0xFFF5B301),
+                  isMobile: isMobile,
+                  icon: Icons.trending_up_rounded,
+                  statusLabel: 'Completo',
+                  statusIcon: '✅',
+                  statusColor: const Color(0xFF10B981),
+                ),
                 _HoverProjectCard(
                   title: 'Penthum',
                   description: isMobile
