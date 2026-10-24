@@ -1058,24 +1058,26 @@ class _HomePageState extends State<HomePage> {
 
           // Featured: Vida (agente Hermes, full-width)
           _HoverProjectCard(
-            title: 'Vida',
+            title: 'Vida · Agente de IA',
             description: isMobile
-                ? 'Agente de IA Hermes en tu celular, Telegram y escritorio: llama, pone música, abre apps y más.'
-                : 'Agente de IA personal basado en Hermes, disponible como app móvil, bot de Telegram y app de escritorio. Conversa por WhatsApp y Telegram y, desde el celular, ejecuta acciones reales en el dispositivo: encender la linterna, abrir YouTube, reproducir música o realizar llamadas.',
+                ? 'Asistente de IA personal en Android, escritorio, Telegram y WhatsApp. Desde el celular llama, pone alarmas, abre apps y más.'
+                : 'Asistente de IA personal construido sobre el agente Hermes. Conversa por app Android, app de escritorio (Windows y Linux), Telegram y WhatsApp, con voz y memoria de documentos. Desde el celular ejecuta 16 acciones reales: llamadas, SMS, linterna, alarmas, calendario, abrir apps y YouTube. Backend propio en Python con más de 40 herramientas MCP, desplegado en un VPS.',
             tech: isMobile
-                ? const ['Agente IA', 'Hermes', 'Telegram', 'WhatsApp']
+                ? const ['Flutter', 'Python', 'Agente IA', 'Telegram']
                 : const [
+                    'Flutter',
+                    'Python',
                     'Agente IA',
-                    'Hermes',
-                    'App móvil',
-                    'Escritorio',
+                    'Gemini',
                     'Telegram',
-                    'WhatsApp'
+                    'WhatsApp',
+                    'Contabo VPS'
                   ],
             color: const Color(0xFF00D2B8),
             featured: true,
             isMobile: isMobile,
             icon: Icons.smart_toy_rounded,
+            logoAsset: 'assets/img/logo_vida.jpg',
             statusLabel: isMobile ? 'Activo' : 'Activo · Multiplataforma',
             statusIcon: '🟢',
             statusColor: const Color(0xFF10B981),
@@ -1112,16 +1114,27 @@ class _HomePageState extends State<HomePage> {
                   (constraints.maxWidth - spacing * (cols - 1)) / cols;
               final cards = <Widget>[
                 _HoverProjectCard(
-                  title: 'Bot de trading del Oro',
+                  title: 'Bot Oro · XAU/USD',
                   description: isMobile
-                      ? 'Bot de trading automatizado para el mercado del Oro.'
-                      : 'Bot de trading automatizado para el mercado del Oro, desarrollado de principio a fin.',
-                  tech: const ['Trading', 'Oro', 'Automatización'],
+                      ? 'Trading de oro con IA: señales por Telegram, panel web en vivo y conexión a MetaTrader 5.'
+                      : 'Sistema de trading de oro (XAU/USD) con IA para scalping en 15 minutos: detecta setups, valida las entradas con modelos de Claude y avisa por Telegram. Incluye un panel web con gráfico en vivo y ~90 módulos de indicadores, conectado a MetaTrader 5 mediante un puente propio en un VPS Windows. Cada idea se mide con backtests antes de adoptarse.',
+                  tech: isMobile
+                      ? const ['Python', 'IA', 'MetaTrader 5', 'Telegram']
+                      : const [
+                          'Python',
+                          'JavaScript',
+                          'IA',
+                          'MetaTrader 5',
+                          'Deriv',
+                          'Telegram',
+                          'Vultr VPS'
+                        ],
                   color: const Color(0xFFF5B301),
                   isMobile: isMobile,
                   icon: Icons.trending_up_rounded,
-                  statusLabel: 'Completo',
-                  statusIcon: '✅',
+                  logoAsset: 'assets/img/logo_bot_oro.png',
+                  statusLabel: 'Activo',
+                  statusIcon: '🟢',
                   statusColor: const Color(0xFF10B981),
                 ),
                 _HoverProjectCard(
