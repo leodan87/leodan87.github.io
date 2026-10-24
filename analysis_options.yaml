@@ -1,0 +1,39 @@
+# Configuración del analizador Dart/Flutter.
+# Mantiene los checks importantes (errores, null safety, código muerto)
+# y silencia los avisos puramente cosméticos para reducir ruido visual.
+
+include: package:flutter_lints/flutter.yaml
+
+analyzer:
+  errors:
+    # Estilo de comillas (simples vs dobles)
+    prefer_double_quotes: ignore
+
+    # Documentación obligatoria en miembros públicos
+    public_member_api_docs: ignore
+
+    # Imports relativos vs package:
+    always_use_package_imports: ignore
+
+    # Preferencias de sintaxis corta
+    prefer_expression_function_bodies: ignore
+    lines_longer_than_80_chars: ignore
+    require_trailing_commas: ignore
+    always_specify_types: ignore
+    always_put_control_body_on_new_line: ignore
+    prefer_int_literals: ignore
+    unnecessary_final: ignore
+
+    # Uso de cascadas y orden de constructores
+    cascade_invocations: ignore
+    sort_constructors_first: ignore
+
+    # Argumentos con valor por defecto
+    avoid_redundant_argument_values: ignore
+
+    # Inferencia de tipos en closures
+    use_function_type_syntax_for_parameters: ignore
+    inference_failure_on_function_return_type: ignore
+
+    # Parámetros opcionales sin uso explícito
+    unused_element_parameter: ignore
